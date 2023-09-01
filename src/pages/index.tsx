@@ -7,10 +7,10 @@ export default function Home() {
   const mounted = useIsMounted();
 
   return (
-    <main className="relative">
+    <div className="relative py-10">
       {mounted ? (
         !isConnected ? (
-          <div className="max-w-md flex flex-col items-center gap-2 p-4 mx-auto">
+          <div className="max-w-md flex flex-col items-center gap-2 mx-auto">
             <h1 className="text-2xl font-bold text-slate-800">
               Say Hello to HashCup 👋
             </h1>
@@ -23,6 +23,6 @@ export default function Home() {
           </div>
         )
       ) : null}
-    </main>
+    </div>
   );
 }
