@@ -17,7 +17,7 @@ export default function Metadata({ title }: MetadataProps) {
         content="HashCup - Simple Link to Your Crypto Wallet."
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="icon" href="/svg/logo.svg " />
+      {/* <link rel="icon" href="/svg/logo.svg " /> */}
     </Head>
   );
 }
