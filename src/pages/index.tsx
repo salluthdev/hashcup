@@ -22,11 +22,7 @@ export default function Home() {
             <p>{address}</p>
           </div>
         )
-      ) : (
-        <div className="p-4">
-          <h1 className="text-2xl font-bold text-slate-800">Loading...</h1>
-        </div>
-      )}
+      ) : null}
     </main>
   );
 }
