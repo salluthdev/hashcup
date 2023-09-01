@@ -7,7 +7,7 @@ export default function Home() {
   const mounted = useIsMounted();
 
   return (
-    <div className="relative py-10">
+    <div className="relative py-6">
       {mounted ? (
         !isConnected ? (
           <div className="max-w-md flex flex-col items-center gap-2 mx-auto">
