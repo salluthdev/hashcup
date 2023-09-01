@@ -1,12 +1,11 @@
 import "@/styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
-import { useState } from "react";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { polygon, bsc } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
-import { AppLayout } from "@/component/common/layouts";
+import { AppLayout } from "@/components/common/layouts";
 
 const { chains, publicClient } = configureChains(
   [bsc, polygon],
@@ -28,7 +27,7 @@ const wagmiConfig = createConfig({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
+      <RainbowKitProvider chains={chains} modalSize="compact">
         <AppLayout>
           <Component {...pageProps} />
         </AppLayout>

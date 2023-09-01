@@ -9,7 +9,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <>
       <Metadata />
-      <div>{children}</div>
+      <div className="max-w-md mx-auto">{children}</div>
     </>
   );
 }
