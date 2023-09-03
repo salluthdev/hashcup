@@ -7,17 +7,14 @@ export default function Home() {
   const { address, isConnected } = useAccount();
   const mounted = useIsMounted();
 
-  const SDFTBalance = useBalance({
-    address: address,
-    token: "0x152b3942A33c78C72B576d28F75910A124Ca8181",
-  });
+  const tokenAddresses = [
+    "152b3942A33c78C72B576d28F75910A124Ca8181",
+    "c2132D05D31c914a87C6611C10748AEb04B58e8F",
+  ];
 
-  const USDTBalance = useBalance({
-    address: address,
-    token: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+  const tokenBalances = tokenAddresses.map((tokenAddress) => {
+    return useBalance({ address, token: `0x${tokenAddress}` });
   });
-
-  console.log(USDTBalance);
 
   return (
     <div className="relative py-6">
@@ -28,13 +25,12 @@ export default function Home() {
           <div className="flex flex-col gap-4">
             <ConnectButton />
             <p>Address: {address}</p>
-            <p>
-              SDFT: {SDFTBalance.data?.formatted} {SDFTBalance.data?.symbol}
-            </p>
-            <p>
-              USDT (polygon): {USDTBalance.data?.formatted}{" "}
-              {USDTBalance.data?.symbol}
-            </p>
+            {tokenBalances.map((token, index) => (
+              <div key={index} className="flex items-center gap-1">
+                <p>{token.data?.formatted}</p>
+                <p>{token.data?.symbol}</p>
+              </div>
+            ))}
           </div>
         )
       ) : null}
