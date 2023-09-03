@@ -10,7 +10,8 @@ export default function Dashboard() {
   ];
 
   const tokenBalances = tokenAddresses.map((tokenAddress) => {
-    return useBalance({ address, token: `0x${tokenAddress}` });
+    const balance = useBalance({ address, token: `0x${tokenAddress}` });
+    return balance;
   });
 
   return (
