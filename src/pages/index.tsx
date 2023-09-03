@@ -1,25 +1,24 @@
+import { Hello } from "@/components/pages/home";
 import { useIsMounted } from "@/hooks";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
+import { useAccount, useBalance } from "wagmi";
 
 export default function Home() {
   const { address, isConnected } = useAccount();
   const mounted = useIsMounted();
 
+  const balance = useBalance({
+    address: address,
+    token: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+  });
+
+  console.log(balance.data);
+
   return (
     <div className="relative py-6">
       {mounted ? (
         !isConnected ? (
-          <div className="max-w-md flex flex-col items-center gap-4 text-center mx-auto">
-            <h1 className="text-2xl font-bold text-slate-800">
-              Say Hello to HashCup 👋
-            </h1>
-            <p>
-              Simple link to your crypto wallet. Share multiple assets overview
-              at once in a good way.
-            </p>
-            <ConnectButton />
-          </div>
+          <Hello />
         ) : (
           <div className="flex flex-col gap-4">
             <ConnectButton />
