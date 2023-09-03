@@ -7,10 +7,7 @@ import { polygon, bsc } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { AppLayout } from "@/components/common/layouts";
 
-const { chains, publicClient } = configureChains(
-  [bsc, polygon],
-  [publicProvider()]
-);
+const { chains, publicClient } = configureChains([polygon], [publicProvider()]);
 
 const { connectors } = getDefaultWallets({
   appName: "hashcup",
