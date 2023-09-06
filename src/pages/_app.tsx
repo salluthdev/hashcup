@@ -3,7 +3,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { polygon, bsc } from "wagmi/chains";
+import { mainnet, bsc, polygon } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { AppLayout } from "@/components/common/layouts";
 
