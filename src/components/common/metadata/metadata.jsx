@@ -1,10 +1,6 @@
 import Head from "next/head";
 
-interface MetadataProps {
-  title?: string;
-}
-
-export default function Metadata({ title }: MetadataProps) {
+export default function Metadata({ title }) {
   return (
     <Head>
       <title>

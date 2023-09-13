@@ -1,11 +1,7 @@
 import { ReactNode } from "react";
 import { Metadata } from "../metadata";
 
-interface AppLayoutProps {
-  children: ReactNode;
-}
-
-export default function AppLayout({ children }: AppLayoutProps) {
+export default function AppLayout({ children }) {
   return (
     <>
       <Metadata />
