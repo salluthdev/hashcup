@@ -13,7 +13,7 @@ const { chains, publicClient } = configureChains(
 
 const { connectors } = getDefaultWallets({
   appName: "hashcup",
-  projectId: "e1ec6b3b2c70b3446a9c7bb1758e94ea",
+  projectId: `${process.env.ALCHEMY_ID}`,
   chains,
 });
 
