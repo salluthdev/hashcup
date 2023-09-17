@@ -35,7 +35,6 @@ export default function App({ Component, pageProps }) {
           chains={chains}
           modalSize="compact"
           theme={lightTheme({
-            accentColor: "#2b1009",
             accentColorForeground: "#fff6ef",
             borderRadius: "medium",
           })}
