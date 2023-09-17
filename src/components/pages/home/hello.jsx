@@ -10,9 +10,7 @@ export default function Hello() {
         height={80}
         alt=""
       />
-      <h1 className="text-2xl font-bold text-slate-800">
-        Say Hello to HashCup 👋
-      </h1>
+      <h1 className="text-2xl font-bold">Say Hello to HashCup 👋</h1>
       <p>
         Simple link to your crypto wallet. Share multiple assets overview at
         once in a good way.

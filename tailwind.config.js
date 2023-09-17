@@ -8,6 +8,7 @@ const config = {
     extend: {
       colors: {
         white1: "#fff6ef",
+        dark_brown1: "#2b1009",
       },
     },
   },

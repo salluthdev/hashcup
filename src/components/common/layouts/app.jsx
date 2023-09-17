@@ -7,7 +7,7 @@ export default function AppLayout({ children }) {
   return (
     <div className={`min-h-screen bg-white1 ${rubik.className}`}>
       <Metadata />
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl text-dark_brown1 mx-auto">
         <main className="px-4">{children}</main>
       </div>
     </div>
