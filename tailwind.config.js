@@ -9,6 +9,7 @@ const config = {
       colors: {
         white1: "#fff6ef",
         dark_brown1: "#2b1009",
+        sandstone: "#7d6d60",
       },
     },
   },

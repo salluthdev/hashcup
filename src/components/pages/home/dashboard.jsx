@@ -66,7 +66,7 @@ export default function Dashboard() {
                   />
                 </div>
               </div>
-              <div className="flex justify-between items-center gap-4">
+              <div className="flex justify-between items-center gap-4 text-sandstone">
                 <p>$1.00</p>
                 <p>
                   {token.balance / 10 ** token.decimals} {token.symbol}
