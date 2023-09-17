@@ -7,8 +7,8 @@ const config = {
   theme: {
     extend: {
       colors: {
-        white1: "#fff6ef",
-        dark_brown1: "#2b1009",
+        rose_white: "#fff6ef",
+        zinnwaldite_brown: "#2b1009",
         sandstone: "#7d6d60",
       },
     },
