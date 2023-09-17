@@ -13,7 +13,7 @@ export default function Metadata({ title }) {
         content="HashCup - Simple Link to Your Crypto Wallet."
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      {/* <link rel="icon" href="/svg/logo.svg " /> */}
+      <link rel="icon" href="/img/hashcup-logo-dummy.png " />
     </Head>
   );
 }
