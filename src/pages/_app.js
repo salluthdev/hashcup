@@ -6,12 +6,12 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { bsc, polygon } from "wagmi/chains";
+import { mainnet, bsc, polygon } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { AppLayout } from "@/components/common/layouts";
 
 const { chains, publicClient } = configureChains(
-  [bsc, polygon],
+  [mainnet, bsc, polygon],
   [publicProvider()]
 );
 

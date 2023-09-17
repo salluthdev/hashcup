@@ -25,7 +25,12 @@ export default function Dashboard() {
         chain,
       });
 
-      setTokenData(response.toJSON());
+      const tokenDataWithNetwork = response.toJSON().map((token) => ({
+        ...token,
+        network: "bsc",
+      }));
+
+      setTokenData(tokenDataWithNetwork);
     };
 
     getTokenBalances();
@@ -45,12 +50,20 @@ export default function Dashboard() {
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl font-bold">Wallet</h1>
         {tokenData.map((token, index) => (
-          <div key={index} className="flex flex-col gap-1">
+          <div key={index} className="flex flex-col gap-2">
             <div className="flex justify-between items-center gap-4">
               <p>{token.symbol}</p>
-              <p className="font-semibold">
-                {token.balance / 10 ** token.decimals}
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="font-semibold">
+                  {token.balance / 10 ** token.decimals}
+                </p>
+                <Image
+                  src={"/svg/network/bsc.svg"}
+                  width={16}
+                  height={16}
+                  alt=""
+                />
+              </div>
             </div>
           </div>
         ))}
