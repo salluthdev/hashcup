@@ -37,7 +37,7 @@ export default function Dashboard() {
   }, [address]);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-10">
       <div className="flex justify-between items-center">
         <Image
           src={"/img/hashcup-logo-dummy.png"}
@@ -47,26 +47,34 @@ export default function Dashboard() {
         />
         <ConnectButton showBalance={false} />
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-6">
         <h1 className="text-2xl font-bold">Wallet</h1>
-        {tokenData.map((token, index) => (
-          <div key={index} className="flex flex-col gap-2">
-            <div className="flex justify-between items-center gap-4">
-              <p>{token.symbol}</p>
-              <div className="flex items-center gap-2">
-                <p className="font-semibold">
-                  {token.balance / 10 ** token.decimals}
+        <div className="flex flex-col gap-5">
+          {tokenData.map((token, index) => (
+            <div key={index} className="flex flex-col gap-2">
+              <div className="flex justify-between items-center gap-4">
+                <p>{token.symbol}</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold">
+                    ${token.balance / 10 ** token.decimals}
+                  </p>
+                  <Image
+                    src={"/svg/network/bsc.svg"}
+                    width={16}
+                    height={16}
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between items-center gap-4">
+                <p>$1.00</p>
+                <p>
+                  {token.balance / 10 ** token.decimals} {token.symbol}
                 </p>
-                <Image
-                  src={"/svg/network/bsc.svg"}
-                  width={16}
-                  height={16}
-                  alt=""
-                />
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
