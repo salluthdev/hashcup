@@ -5,7 +5,11 @@ const config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        white1: "#fff6ef",
+      },
+    },
   },
   plugins: [],
 };
