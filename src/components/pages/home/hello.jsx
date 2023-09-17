@@ -8,7 +8,7 @@ export default function Hello() {
         src={"/img/hashcup-logo-dummy.png"}
         width={80}
         height={80}
-        alt=""
+        alt="hashcup-logo"
       />
       <h1 className="text-2xl font-bold">Say Hello to HashCup 👋</h1>
       <p>

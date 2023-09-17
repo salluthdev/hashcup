@@ -1,4 +1,5 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 const Moralis = require("moralis").default;
@@ -31,9 +32,29 @@ export default function Dashboard() {
   }, [address]);
 
   return (
-    <div className="flex flex-col gap-4">
-      <ConnectButton />
-      <p>Address: {address}</p>
+    <div className="flex flex-col gap-6">
+      <div className="flex justify-between items-center">
+        <Image
+          src={"/img/hashcup-logo-dummy.png"}
+          width={40}
+          height={40}
+          alt="hashcup logo"
+        />
+        <ConnectButton showBalance={false} />
+      </div>
+      <div className="flex flex-col gap-4">
+        <h1 className="text-2xl font-bold">Wallet</h1>
+        {tokenData.map((token, index) => (
+          <div key={index} className="flex flex-col gap-1">
+            <div className="flex justify-between items-center gap-4">
+              <p>{token.symbol}</p>
+              <p className="font-semibold">
+                {token.balance / 10 ** token.decimals}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
