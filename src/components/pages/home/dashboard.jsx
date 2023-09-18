@@ -4,36 +4,71 @@ import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 const Moralis = require("moralis").default;
 const { EvmChain } = require("@moralisweb3/common-evm-utils");
+require("dotenv").config();
 
 export default function Dashboard() {
   const { address } = useAccount();
   const [tokenData, setTokenData] = useState([]);
 
-  console.log(tokenData);
+  console.log(process.env.NEXT_PUBLIC_MORALIS_API_KEY);
 
   useEffect(() => {
     const getTokenBalances = async () => {
-      if (!Moralis.Core.isStarted) {
-        await Moralis.start({
-          apiKey:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjljZWEyNzg2LWFjN2MtNDgwNy1hYTMzLWIwZmIwZTE3YTRiYSIsIm9yZ0lkIjoiMjc2NzI2IiwidXNlcklkIjoiMjgyMjczIiwidHlwZUlkIjoiZTg3NjUwZmQtNDg2MC00YjZmLTk5MGItMzMyYTM1MWNjOTIyIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE2OTM5OTA3NTEsImV4cCI6NDg0OTc1MDc1MX0.tgoUHCs-CnbgCq3AL_s3Tm6a2N1e1qcc1VN50QoCx7w",
+      try {
+        if (!Moralis.Core.isStarted) {
+          await Moralis.start({
+            apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
+          });
+        }
+        const chain = EvmChain.BSC;
+        const response = await Moralis.EvmApi.token.getWalletTokenBalances({
+          address,
+          chain,
         });
+
+        const tokenDataResponse = response.toJSON().map((token) => ({
+          ...token,
+          network: "bsc",
+        }));
+
+        setTokenData((prevTokenData) =>
+          prevTokenData.concat(tokenDataResponse)
+        );
+      } catch (error) {
+        console.log(error);
       }
-      const chain = EvmChain.BSC;
-      const response = await Moralis.EvmApi.token.getWalletTokenBalances({
-        address,
-        chain,
-      });
+    };
+    const getNativeBalance = async () => {
+      try {
+        if (!Moralis.Core.isStarted) {
+          await Moralis.start({
+            apiKey: MORALIS_API_KEY,
+          });
+        }
 
-      const tokenDataWithNetwork = response.toJSON().map((token) => ({
-        ...token,
-        network: "bsc",
-      }));
+        const response = await Moralis.EvmApi.balance.getNativeBalance({
+          chain: "0x38",
+          address,
+        });
 
-      setTokenData(tokenDataWithNetwork);
+        const nativeTokenDataResponse = {
+          balance: response.toJSON().balance,
+          decimals: 18,
+          network: "eth",
+          symbol: "ETH",
+          token_address: "0x71753d0586ea6b979dfccbb492a45e611e0e0ad6",
+        };
+
+        setTokenData((prevTokenData) =>
+          prevTokenData.concat(nativeTokenDataResponse)
+        );
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     getTokenBalances();
+    getNativeBalance();
   }, [address]);
 
   return (
