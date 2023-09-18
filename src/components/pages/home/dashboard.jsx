@@ -42,7 +42,7 @@ export default function Dashboard() {
       try {
         if (!Moralis.Core.isStarted) {
           await Moralis.start({
-            apiKey: MORALIS_API_KEY,
+            apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
           });
         }
 
