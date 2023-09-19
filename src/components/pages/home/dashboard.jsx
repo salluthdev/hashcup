@@ -17,32 +17,40 @@ export default function Dashboard() {
         });
       }
       const chain = EvmChain.BSC;
+      const chainIds = ["0x1", "0x38"];
+
+      const nativeBalancePromises = chainIds.map(async (chainId) => {
+        const nativeBalanceResponse =
+          await Moralis.EvmApi.balance.getNativeBalance({
+            chain: chainId,
+            address,
+          });
+        return {
+          chainId,
+          balance: nativeBalanceResponse.toJSON().balance,
+        };
+      });
+
+      const nativeBalances = await Promise.all(nativeBalancePromises);
 
       const tokenResponse = await Moralis.EvmApi.token.getWalletTokenBalances({
         address,
         chain,
       });
 
-      const nativeBalanceResponse =
-        await Moralis.EvmApi.balance.getNativeBalance({
-          chain: "0x38",
-          address,
-        });
-
       const tokenDataResponse = tokenResponse.toJSON().map((token) => ({
         ...token,
         network: "bsc",
       }));
 
-      const nativeTokenDataResponse = {
-        balance: nativeBalanceResponse.toJSON().balance,
+      const nativeTokenDataResponse = nativeBalances.map((nativeBalance) => ({
+        balance: nativeBalance.balance,
         decimals: 18,
-        network: "eth",
-        symbol: "ETH",
-        token_address: "0x71753d0586ea6b979dfccbb492a45e611e0e0ad6",
-      };
+        network: nativeBalance.chainId === "0x1" ? "eth" : "bsc",
+        symbol: nativeBalance.chainId === "0x1" ? "ETH" : "BNB",
+      }));
 
-      setTokenData([...tokenDataResponse, nativeTokenDataResponse]);
+      setTokenData([...tokenDataResponse, ...nativeTokenDataResponse]);
     } catch (error) {
       console.log(error);
     }
