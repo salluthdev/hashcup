@@ -17,7 +17,7 @@ export default function Dashboard() {
         });
       }
       const chain = EvmChain.BSC;
-      const chainIds = ["0x1", "0x38"];
+      const chainIds = ["0x1", "0x38", "0x89"];
 
       const nativeBalancePromises = chainIds.map(async (chainId) => {
         const nativeBalanceResponse =
@@ -46,8 +46,22 @@ export default function Dashboard() {
       const nativeTokenDataResponse = nativeBalances.map((nativeBalance) => ({
         balance: nativeBalance.balance,
         decimals: 18,
-        network: nativeBalance.chainId === "0x1" ? "eth" : "bsc",
-        symbol: nativeBalance.chainId === "0x1" ? "ETH" : "BNB",
+        network:
+          nativeBalance.chainId === "0x1"
+            ? "eth"
+            : nativeBalance.chainId === "0x38"
+            ? "bsc"
+            : nativeBalance.chainId === "0x89"
+            ? "polygon"
+            : "",
+        symbol:
+          nativeBalance.chainId === "0x1"
+            ? "ETH"
+            : nativeBalance.chainId === "0x38"
+            ? "BNB"
+            : nativeBalance.chainId === "0x89"
+            ? "MATIC"
+            : "",
       }));
 
       setTokenData([...tokenDataResponse, ...nativeTokenDataResponse]);
