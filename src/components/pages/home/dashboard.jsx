@@ -18,55 +18,55 @@ export default function Dashboard() {
           apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
         });
       }
-      const chain = EvmChain.BSC;
       const chainIds = ["0x1", "0x38", "0x89"];
 
-      const nativeBalancePromises = chainIds.map(async (chainId) => {
+      const balancePromises = chainIds.map(async (chainId) => {
         const nativeBalanceResponse =
           await Moralis.EvmApi.balance.getNativeBalance({
-            chain: chainId,
             address,
+            chain: chainId,
           });
-        return {
-          chainId,
+
+        const tokenResponse = await Moralis.EvmApi.token.getWalletTokenBalances(
+          {
+            address,
+            chain: chainId,
+          }
+        );
+
+        const nativeTokenData = {
           balance: nativeBalanceResponse.toJSON().balance,
+          decimals: 18,
+          network:
+            chainId === "0x1"
+              ? "eth"
+              : chainId === "0x38"
+              ? "bsc"
+              : chainId === "0x89"
+              ? "polygon"
+              : "",
+          symbol:
+            chainId === "0x1"
+              ? "ETH"
+              : chainId === "0x38"
+              ? "BNB"
+              : chainId === "0x89"
+              ? "MATIC"
+              : "",
         };
+
+        const tokenData = tokenResponse.toJSON().map((token) => ({
+          ...token,
+          network: "bsc",
+        }));
+
+        return [nativeTokenData, ...tokenData];
       });
 
-      const nativeBalances = await Promise.all(nativeBalancePromises);
+      const allBalances = await Promise.all(balancePromises);
+      const flattenedBalances = allBalances.flat();
 
-      const tokenResponse = await Moralis.EvmApi.token.getWalletTokenBalances({
-        address,
-        chain,
-      });
-
-      const tokenDataResponse = tokenResponse.toJSON().map((token) => ({
-        ...token,
-        network: "bsc",
-      }));
-
-      const nativeTokenDataResponse = nativeBalances.map((nativeBalance) => ({
-        balance: nativeBalance.balance,
-        decimals: 18,
-        network:
-          nativeBalance.chainId === "0x1"
-            ? "eth"
-            : nativeBalance.chainId === "0x38"
-            ? "bsc"
-            : nativeBalance.chainId === "0x89"
-            ? "polygon"
-            : "",
-        symbol:
-          nativeBalance.chainId === "0x1"
-            ? "ETH"
-            : nativeBalance.chainId === "0x38"
-            ? "BNB"
-            : nativeBalance.chainId === "0x89"
-            ? "MATIC"
-            : "",
-      }));
-
-      setTokenData([...tokenDataResponse, ...nativeTokenDataResponse]);
+      setTokenData(flattenedBalances);
     } catch (error) {
       console.log(error);
     }
