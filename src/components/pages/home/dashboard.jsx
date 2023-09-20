@@ -83,7 +83,7 @@ export default function Dashboard() {
                     ${token.balance / 10 ** token.decimals}
                   </p>
                   <Image
-                    src={"/svg/network/bsc.svg"}
+                    src={`/svg/network/${token.network}.svg`}
                     width={16}
                     height={16}
                     alt=""
