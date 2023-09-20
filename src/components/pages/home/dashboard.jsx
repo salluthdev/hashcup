@@ -9,6 +9,8 @@ export default function Dashboard() {
   const { address } = useAccount();
   const [tokenData, setTokenData] = useState([]);
 
+  console.log(tokenData);
+
   const getTokenBalances = async () => {
     try {
       if (!Moralis.Core.isStarted) {
@@ -88,30 +90,33 @@ export default function Dashboard() {
       <div className="flex flex-col gap-6">
         <h1 className="text-2xl font-bold">Wallet</h1>
         <div className="flex flex-col gap-5">
-          {tokenData.map((token, index) => (
-            <div key={index} className="flex flex-col gap-2">
-              <div className="flex justify-between items-center gap-4">
-                <p>{token.symbol}</p>
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold">
-                    ${token.balance / 10 ** token.decimals}
-                  </p>
-                  <Image
-                    src={`/svg/network/${token.network}.svg`}
-                    width={16}
-                    height={16}
-                    alt=""
-                  />
+          {tokenData.map(
+            (token, index) =>
+              !token.possible_spam && (
+                <div key={index} className="flex flex-col gap-2">
+                  <div className="flex justify-between items-center gap-4">
+                    <p>{token.symbol}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold">
+                        ${token.balance / 10 ** token.decimals}
+                      </p>
+                      <Image
+                        src={`/svg/network/${token.network}.svg`}
+                        width={16}
+                        height={16}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center gap-4 text-sandstone">
+                    <p>$1.00</p>
+                    <p>
+                      {token.balance / 10 ** token.decimals} {token.symbol}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex justify-between items-center gap-4 text-sandstone">
-                <p>$1.00</p>
-                <p>
-                  {token.balance / 10 ** token.decimals} {token.symbol}
-                </p>
-              </div>
-            </div>
-          ))}
+              )
+          )}
         </div>
       </div>
     </div>
