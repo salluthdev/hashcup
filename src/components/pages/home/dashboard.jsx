@@ -93,26 +93,34 @@ export default function Dashboard() {
           {tokenData.map(
             (token, index) =>
               !token.possible_spam && (
-                <div key={index} className="flex flex-col gap-2">
-                  <div className="flex justify-between items-center gap-4">
-                    <p>{token.symbol}</p>
-                    <div className="flex items-center gap-2">
-                      <p className="font-semibold">
-                        ${token.balance / 10 ** token.decimals}
-                      </p>
-                      <Image
-                        src={`/svg/network/${token.network}.svg`}
-                        width={16}
-                        height={16}
-                        alt=""
-                      />
+                <div key={index} className="flex items-center gap-4">
+                  <Image
+                    src={`https://tokens-data.1inch.io/images/0xdac17f958d2ee523a2206206994597c13d831ec7.png`}
+                    width={24}
+                    height={24}
+                    alt=""
+                  />
+                  <div className="flex-1 flex flex-col gap-2">
+                    <div className="flex justify-between items-center gap-4">
+                      <p>{token.symbol}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="font-semibold">
+                          ${token.balance / 10 ** token.decimals}
+                        </p>
+                        <Image
+                          src={`/svg/network/${token.network}.svg`}
+                          width={16}
+                          height={16}
+                          alt=""
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex justify-between items-center gap-4 text-sandstone">
-                    <p>$1.00</p>
-                    <p>
-                      {token.balance / 10 ** token.decimals} {token.symbol}
-                    </p>
+                    <div className="flex justify-between items-center gap-4 text-sandstone">
+                      <p>$1.00</p>
+                      <p>
+                        {token.balance / 10 ** token.decimals} {token.symbol}
+                      </p>
+                    </div>
                   </div>
                 </div>
               )
