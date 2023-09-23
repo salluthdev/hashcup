@@ -57,7 +57,14 @@ export default function Dashboard() {
 
         const tokenData = tokenResponse.toJSON().map((token) => ({
           ...token,
-          network: "bsc",
+          network:
+            chainId === "0x1"
+              ? "eth"
+              : chainId === "0x38"
+              ? "bsc"
+              : chainId === "0x89"
+              ? "polygon"
+              : "",
         }));
 
         return [nativeTokenData, ...tokenData];
@@ -94,12 +101,12 @@ export default function Dashboard() {
             (token, index) =>
               !token.possible_spam && (
                 <div key={index} className="flex items-center gap-4">
-                  <Image
-                    src={`https://tokens-data.1inch.io/images/0xdac17f958d2ee523a2206206994597c13d831ec7.png`}
+                  {/* <Image
+                    src={`https://tokens-data.1inch.io/images/${token.token_address}.png`}
                     width={24}
                     height={24}
                     alt=""
-                  />
+                  /> */}
                   <div className="flex-1 flex flex-col gap-2">
                     <div className="flex justify-between items-center gap-4">
                       <p>{token.symbol}</p>
