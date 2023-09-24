@@ -95,10 +95,13 @@ export default function Dashboard() {
               !token.possible_spam && (
                 <div key={index} className="flex items-center gap-4">
                   <Image
-                    src={`https://tokens-data.1inch.io/images/${token.address}.png`}
+                    src={`/img/token/${token.network}/${
+                      token.token_address ? token.token_address : "native"
+                    }.png?v2`}
                     width={24}
                     height={24}
                     alt=""
+                    className="rounded-full"
                   />
                   <div className="flex-1 flex flex-col gap-2">
                     <div className="flex justify-between items-center gap-4">

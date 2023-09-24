@@ -4,7 +4,7 @@ require("dotenv").config();
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["tokens-data.1inch.io"],
+    unoptimized: true,
   },
 };
 
