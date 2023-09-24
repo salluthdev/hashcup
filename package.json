@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@moralisweb3/common-evm-utils": "^2.23.1",
     "@rainbow-me/rainbowkit": "^1.0.9",
     "autoprefixer": "10.4.15",
     "dotenv": "^16.3.1",
