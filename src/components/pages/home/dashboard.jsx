@@ -57,7 +57,14 @@ export default function Dashboard() {
 
         const tokenData = tokenResponse.toJSON().map((token) => ({
           ...token,
-          network: "bsc",
+          network:
+            chainId === "0x1"
+              ? "eth"
+              : chainId === "0x38"
+              ? "bsc"
+              : chainId === "0x89"
+              ? "polygon"
+              : "",
         }));
 
         return [nativeTokenData, ...tokenData];
