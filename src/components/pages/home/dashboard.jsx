@@ -104,7 +104,7 @@ export default function Dashboard() {
                   <Image
                     src={`/img/token/${token.network}/${
                       token.token_address ? token.token_address : "native"
-                    }.png?v2`}
+                    }.png`}
                     width={24}
                     height={24}
                     alt=""
