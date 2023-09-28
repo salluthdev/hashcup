@@ -8,21 +8,21 @@ const CREATOR_SOCIAL = [
   },
   {
     name: "twitter",
-    link: "https://www.instagram.com/salluthdev/",
+    link: "https://twitter.com/salluthdev",
   },
   {
     name: "linkedin",
-    link: "https://www.instagram.com/salluthdev/",
+    link: "https://linkedin.com/in/salluthdev",
   },
 ];
 
 export default function Footer() {
   return (
     <div className="w-full flex flex-col gap-5 items-center bg-very_pale_orange py-10 px-4">
-      <p>Connect with The Creator</p>
+      <p>Connect with The Creator - @salluthdev</p>
       <div className="flex items-center gap-4">
         {CREATOR_SOCIAL.map((social) => (
-          <Link key={social.name} href={social.link}>
+          <Link key={social.name} href={social.link} target="_blank">
             <Image
               src={`/svg/social/${social.name}.svg`}
               width={20}
