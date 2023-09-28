@@ -78,9 +78,9 @@ export default function Dashboard() {
     }
   };
 
-  useEffect(() => {
-    getTokenBalances();
-  }, [address]);
+  // useEffect(() => {
+  //   getTokenBalances();
+  // }, [address]);
 
   return (
     <div className="flex flex-col gap-10">
@@ -124,7 +124,7 @@ export default function Dashboard() {
                         />
                       </div>
                     </div>
-                    <div className="flex justify-between items-center gap-4 text-sandstone">
+                    <div className="flex justify-between items-center gap-4 text-pastel_brown">
                       <p>$1.00</p>
                       <p>
                         {token.balance / 10 ** token.decimals} {token.symbol}

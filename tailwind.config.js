@@ -7,12 +7,12 @@ const config = {
   theme: {
     extend: {
       colors: {
-        rose_white: "#fff6ef",
-        zinnwaldite_brown: "#2b1009",
-        sandstone: "#7d6d60",
+        seashell: "#fff6ef",
+        root_beer: "#2b1009",
+        pastel_brown: "#7d6d60",
+        very_pale_orange: "#ffd8c1",
       },
     },
   },
-  plugins: [],
 };
 export default config;
