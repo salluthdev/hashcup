@@ -91,7 +91,7 @@ export default function Dashboard() {
           height={40}
           alt="hashcup logo"
         />
-        <ConnectButton showBalance={false} />
+        <ConnectButton showBalance={false} chainStatus={"icon"} />
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="text-2xl font-bold">Wallet</h1>
