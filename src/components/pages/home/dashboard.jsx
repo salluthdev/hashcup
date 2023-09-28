@@ -78,9 +78,9 @@ export default function Dashboard() {
     }
   };
 
-  // useEffect(() => {
-  //   getTokenBalances();
-  // }, [address]);
+  useEffect(() => {
+    getTokenBalances();
+  }, [address]);
 
   return (
     <div className="flex flex-col gap-10">
