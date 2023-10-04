@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   console.log(tokenData);
 
-  const getTokenBalances = async () => {
+  const getTokenDatas = async () => {
     try {
       if (!Moralis.Core.isStarted) {
         await Moralis.start({
@@ -54,19 +54,42 @@ export default function Dashboard() {
               : "",
         };
 
-        const tokenData = tokenResponse.toJSON().map((token) => ({
-          ...token,
-          network:
-            chainId === "0x1"
-              ? "eth"
-              : chainId === "0x38"
-              ? "bsc"
-              : chainId === "0x89"
-              ? "polygon"
-              : "",
-        }));
+        const tokenData = tokenResponse.toJSON().map(async (token) => {
+          if (token.possible_spam) {
+            return {
+              ...token,
+              network:
+                chainId === "0x1"
+                  ? "eth"
+                  : chainId === "0x38"
+                  ? "bsc"
+                  : chainId === "0x89"
+                  ? "polygon"
+                  : "",
+              price: 0,
+            };
+          }
 
-        return [nativeTokenData, ...tokenData];
+          const tokenPriceResponse = await Moralis.EvmApi.token.getTokenPrice({
+            address: token.token_address,
+            chain: chainId,
+          });
+
+          return {
+            ...token,
+            network:
+              chainId === "0x1"
+                ? "eth"
+                : chainId === "0x38"
+                ? "bsc"
+                : chainId === "0x89"
+                ? "polygon"
+                : "",
+            price: tokenPriceResponse?.toJSON()?.usdPrice || 0,
+          };
+        });
+
+        return Promise.all([nativeTokenData, ...tokenData]);
       });
 
       const allBalances = await Promise.all(balancePromises);
@@ -79,7 +102,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    getTokenBalances();
+    getTokenDatas();
   }, [address]);
 
   return (
@@ -98,11 +121,11 @@ export default function Dashboard() {
         <div className="flex flex-col gap-5">
           {tokenData.map(
             (token, index) =>
-              !token.possible_spam && (
+              !token?.possible_spam && (
                 <div key={index} className="flex items-center gap-4">
                   <Image
-                    src={`/img/token/${token.network}/${
-                      token.token_address ? token.token_address : "native"
+                    src={`/img/token/${token?.network}/${
+                      token?.token_address ? token?.token_address : "native"
                     }.png`}
                     width={24}
                     height={24}
@@ -111,13 +134,13 @@ export default function Dashboard() {
                   />
                   <div className="flex-1 flex flex-col gap-2">
                     <div className="flex justify-between items-center gap-4">
-                      <p>{token.symbol}</p>
+                      <p>{token?.symbol}</p>
                       <div className="flex items-center gap-2">
                         <p className="font-semibold">
-                          ${token.balance / 10 ** token.decimals}
+                          ${token?.balance / 10 ** token?.decimals}
                         </p>
                         <Image
-                          src={`/svg/network/${token.network}.svg`}
+                          src={`/svg/network/${token?.network}.svg`}
                           width={16}
                           height={16}
                           alt=""
@@ -127,7 +150,7 @@ export default function Dashboard() {
                     <div className="flex justify-between items-center gap-4 text-pastel_brown">
                       <p>$1.00</p>
                       <p>
-                        {token.balance / 10 ** token.decimals} {token.symbol}
+                        {token?.balance / 10 ** token?.decimals} {token?.symbol}
                       </p>
                     </div>
                   </div>
