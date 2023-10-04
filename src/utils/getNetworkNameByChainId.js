@@ -1,4 +1,4 @@
-export function getNetwork(chainId) {
+export function getNetworkNameByChainId(chainId) {
   switch (chainId) {
     case "0x1":
       return "eth";

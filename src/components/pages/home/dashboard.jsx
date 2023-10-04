@@ -1,3 +1,4 @@
+import { getNetworkNameByChainId } from "@/utils";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -58,14 +59,7 @@ export default function Dashboard() {
           if (token.possible_spam) {
             return {
               ...token,
-              network:
-                chainId === "0x1"
-                  ? "eth"
-                  : chainId === "0x38"
-                  ? "bsc"
-                  : chainId === "0x89"
-                  ? "polygon"
-                  : "",
+              network: getNetworkNameByChainId(chainId),
               price: 0,
             };
           }
@@ -77,14 +71,7 @@ export default function Dashboard() {
 
           return {
             ...token,
-            network:
-              chainId === "0x1"
-                ? "eth"
-                : chainId === "0x38"
-                ? "bsc"
-                : chainId === "0x89"
-                ? "polygon"
-                : "",
+            network: getNetworkNameByChainId(chainId),
             price: tokenPriceResponse?.toJSON()?.usdPrice || 0,
           };
         });
