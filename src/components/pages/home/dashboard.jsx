@@ -20,7 +20,7 @@ export default function Dashboard() {
       }
       const chainIds = ["0x1", "0x38", "0x89"];
 
-      const balancePromises = chainIds.map(async (chainId) => {
+      const getTokenBalances = chainIds.map(async (chainId) => {
         const nativeBalanceResponse =
           await Moralis.EvmApi.balance.getNativeBalance({
             address,
@@ -72,7 +72,7 @@ export default function Dashboard() {
         return Promise.all([nativeTokenData, ...tokenData]);
       });
 
-      const allBalances = await Promise.all(balancePromises);
+      const allBalances = await Promise.all(getTokenBalances);
       const flattenedBalances = allBalances.flat();
 
       setTokenData(flattenedBalances);
