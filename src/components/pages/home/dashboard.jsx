@@ -37,14 +37,7 @@ export default function Dashboard() {
         const nativeTokenData = {
           balance: nativeBalanceResponse.toJSON().balance,
           decimals: 18,
-          network:
-            chainId === "0x1"
-              ? "eth"
-              : chainId === "0x38"
-              ? "bsc"
-              : chainId === "0x89"
-              ? "polygon"
-              : "",
+          network: getNetworkNameByChainId(chainId),
           symbol:
             chainId === "0x1"
               ? "ETH"
