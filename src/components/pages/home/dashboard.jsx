@@ -1,4 +1,4 @@
-import { getNetworkNameByChainId } from "@/utils";
+import { USDFormat, getNetworkNameByChainId } from "@/utils";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -128,7 +128,7 @@ export default function Dashboard() {
                       </div>
                     </div>
                     <div className="flex justify-between items-center gap-4 text-pastel_brown">
-                      <p>${token?.price}</p>
+                      <p>{USDFormat(token?.price)}</p>
                       <p>
                         {token?.balance / 10 ** token?.decimals} {token?.symbol}
                       </p>
