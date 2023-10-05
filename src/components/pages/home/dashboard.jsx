@@ -128,7 +128,7 @@ export default function Dashboard() {
                       </div>
                     </div>
                     <div className="flex justify-between items-center gap-4 text-pastel_brown">
-                      <p>$1.00</p>
+                      <p>${token?.price}</p>
                       <p>
                         {token?.balance / 10 ** token?.decimals} {token?.symbol}
                       </p>
