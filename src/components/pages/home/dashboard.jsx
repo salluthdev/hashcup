@@ -1,4 +1,4 @@
-import { USDFormat, getNetworkNameByChainId } from "@/utils";
+import { USDFormat, getNetworkNameByChainId, roundedNumber } from "@/utils";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -114,10 +114,13 @@ export default function Dashboard() {
                   />
                   <div className="flex-1 flex flex-col gap-2">
                     <div className="flex justify-between items-center gap-4">
-                      <p>{token?.symbol}</p>
+                      <p className="font-medium">{token?.symbol}</p>
                       <div className="flex items-center gap-2">
                         <p className="font-semibold">
-                          ${token?.balance / 10 ** token?.decimals}
+                          {USDFormat(
+                            (token?.balance / 10 ** token?.decimals) *
+                              token?.price
+                          )}
                         </p>
                         <Image
                           src={`/svg/network/${token?.network}.svg`}
@@ -128,9 +131,10 @@ export default function Dashboard() {
                       </div>
                     </div>
                     <div className="flex justify-between items-center gap-4 text-pastel_brown">
-                      <p>{USDFormat(token?.price)}</p>
+                      <p>{USDFormat(token?.price ? token?.price : "-")}</p>
                       <p>
-                        {token?.balance / 10 ** token?.decimals} {token?.symbol}
+                        {roundedNumber(token?.balance / 10 ** token?.decimals)}{" "}
+                        {token?.symbol}
                       </p>
                     </div>
                   </div>
