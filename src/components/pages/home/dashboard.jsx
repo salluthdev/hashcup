@@ -1,9 +1,21 @@
-import { USDFormat, getNetworkNameByChainId, roundedNumber } from "@/utils";
+import {
+  USDFormat,
+  getNetworkNameByChainId,
+  getTokenPrice,
+  roundedNumber,
+} from "@/utils";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 const Moralis = require("moralis").default;
+
+const chainIds = ["0x1", "0x38", "0x89"];
+const nativeWrappedTokenAddresses = {
+  "0x1": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+  "0x38": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+  "0x89": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
+};
 
 export default function Dashboard() {
   const { address } = useAccount();
@@ -18,7 +30,6 @@ export default function Dashboard() {
           apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
         });
       }
-      const chainIds = ["0x1", "0x38", "0x89"];
 
       const getTokenBalances = chainIds.map(async (chainId) => {
         const nativeBalanceResponse =
@@ -46,6 +57,10 @@ export default function Dashboard() {
               : chainId === "0x89"
               ? "MATIC"
               : "",
+          price: await getTokenPrice(
+            nativeWrappedTokenAddresses[chainId],
+            chainId
+          ),
         };
 
         const tokenData = tokenResponse.toJSON().map(async (token) => {
@@ -57,15 +72,12 @@ export default function Dashboard() {
             };
           }
 
-          const tokenPriceResponse = await Moralis.EvmApi.token.getTokenPrice({
-            address: token.token_address,
-            chain: chainId,
-          });
+          const tokenPrice = await getTokenPrice(token.token_address, chainId);
 
           return {
             ...token,
             network: getNetworkNameByChainId(chainId),
-            price: tokenPriceResponse?.toJSON()?.usdPrice || 0,
+            price: tokenPrice,
           };
         });
 
