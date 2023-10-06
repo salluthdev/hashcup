@@ -1,8 +1,8 @@
 import {
+  NumberFormat,
   USDFormat,
   getNetworkNameByChainId,
   getTokenPrice,
-  roundedNumber,
 } from "@/utils";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
@@ -38,13 +38,6 @@ export default function Dashboard() {
             chain: chainId,
           });
 
-        const tokenResponse = await Moralis.EvmApi.token.getWalletTokenBalances(
-          {
-            address,
-            chain: chainId,
-          }
-        );
-
         const nativeTokenData = {
           balance: nativeBalanceResponse.toJSON().balance,
           decimals: 18,
@@ -62,6 +55,13 @@ export default function Dashboard() {
             chainId
           ),
         };
+
+        const tokenResponse = await Moralis.EvmApi.token.getWalletTokenBalances(
+          {
+            address,
+            chain: chainId,
+          }
+        );
 
         const tokenData = tokenResponse.toJSON().map(async (token) => {
           if (token.possible_spam) {
@@ -145,7 +145,7 @@ export default function Dashboard() {
                     <div className="flex justify-between items-center gap-4 text-pastel_brown">
                       <p>{USDFormat(token?.price ? token?.price : "-")}</p>
                       <p>
-                        {roundedNumber(token?.balance / 10 ** token?.decimals)}{" "}
+                        {NumberFormat(token?.balance / 10 ** token?.decimals)}{" "}
                         {token?.symbol}
                       </p>
                     </div>

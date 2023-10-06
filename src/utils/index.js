@@ -1,4 +1,3 @@
 export * from "./getNetworkNameByChainId";
-export * from "./currencyFormat";
-export * from "./roundedNumber";
+export * from "./numberFormat";
 export * from "./getTokenPrice";

@@ -6,3 +6,7 @@ export function USDFormat(number) {
     maximumFractionDigits: 4,
   });
 }
+
+export function NumberFormat(number) {
+  return number.toLocaleString();
+}
