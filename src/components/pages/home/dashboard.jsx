@@ -32,6 +32,7 @@ export default function Dashboard() {
       }
 
       const getTokenBalances = chainIds.map(async (chainId) => {
+        // Get native token balance and price
         const nativeBalanceResponse =
           await Moralis.EvmApi.balance.getNativeBalance({
             address,
@@ -56,6 +57,7 @@ export default function Dashboard() {
           ),
         };
 
+        // Get non-native token balance and price
         const tokenResponse = await Moralis.EvmApi.token.getWalletTokenBalances(
           {
             address,
@@ -72,12 +74,10 @@ export default function Dashboard() {
             };
           }
 
-          const tokenPrice = await getTokenPrice(token.token_address, chainId);
-
           return {
             ...token,
             network: getNetworkNameByChainId(chainId),
-            price: tokenPrice,
+            price: await getTokenPrice(token.token_address, chainId),
           };
         });
 
