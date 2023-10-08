@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+@layer base {
+  p {
+    @apply tracking-wide;
+  }
 }
