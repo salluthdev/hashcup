@@ -11,7 +11,7 @@ export default function AppLayout({ children }) {
     >
       <Metadata />
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 py-8">{children}</main>
       <Footer />
     </div>
   );

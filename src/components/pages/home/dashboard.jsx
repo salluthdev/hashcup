@@ -19,6 +19,7 @@ const nativeWrappedTokenAddresses = {
 export default function Dashboard() {
   const { address } = useAccount();
   const [tokenList, setTokenList] = useState([]);
+  const [totalNetWorth, setTotalNetWorth] = useState(0);
 
   console.log(tokenList);
 
@@ -87,6 +88,18 @@ export default function Dashboard() {
       const flattenedBalances = allBalances.flat();
 
       setTokenList(flattenedBalances);
+
+      // Calculate total net worth
+      const netWorth = flattenedBalances.reduce((total, token) => {
+        if (!token?.possible_spam) {
+          return (
+            total + (token?.balance / 10 ** token?.decimals) * token?.price
+          );
+        }
+        return total;
+      }, 0);
+
+      setTotalNetWorth(netWorth);
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +111,7 @@ export default function Dashboard() {
 
   return (
     <div className="w-full max-w-3xl flex flex-col gap-6 px-4 mx-auto">
-      <h1 className="text-2xl font-bold">Wallet</h1>
+      <h1 className="text-2xl font-bold">Wallet: {USDFormat(totalNetWorth)}</h1>
       <div className="flex flex-col gap-5">
         {tokenList.map(
           (token, index) =>
