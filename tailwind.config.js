@@ -11,6 +11,7 @@ const config = {
         root_beer: "#2b1009",
         pastel_brown: "#7d6d60",
         very_pale_orange: "#ffd8c1",
+        linen: "#f9ede5",
       },
     },
   },

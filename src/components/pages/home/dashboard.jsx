@@ -112,11 +112,14 @@ export default function Dashboard() {
   return (
     <div className="w-full max-w-3xl flex flex-col gap-6 px-4 mx-auto">
       <h1 className="text-2xl font-bold">Wallet: {USDFormat(totalNetWorth)}</h1>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col">
         {tokenList.map(
           (token, index) =>
             !token?.possible_spam && (
-              <div key={index} className="flex items-center gap-4">
+              <div
+                key={index}
+                className="flex items-center gap-4 hover:bg-linen rounded-lg py-2 px-6 -mx-6 cursor-pointer"
+              >
                 <Image
                   src={`/img/token/${token?.network}/${
                     token?.token_address ? token?.token_address : "native"
