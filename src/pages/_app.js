@@ -29,19 +29,19 @@ const wagmiConfig = createConfig({
 
 export default function App({ Component, pageProps }) {
   return (
-    <AppLayout>
-      <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider
-          chains={chains}
-          modalSize="compact"
-          theme={lightTheme({
-            accentColorForeground: "#fff6ef",
-            borderRadius: "medium",
-          })}
-        >
+    <WagmiConfig config={wagmiConfig}>
+      <RainbowKitProvider
+        chains={chains}
+        modalSize="compact"
+        theme={lightTheme({
+          accentColorForeground: "#fff6ef",
+          borderRadius: "medium",
+        })}
+      >
+        <AppLayout>
           <Component {...pageProps} />
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </AppLayout>
+        </AppLayout>
+      </RainbowKitProvider>
+    </WagmiConfig>
   );
 }

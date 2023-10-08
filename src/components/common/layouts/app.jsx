@@ -1,4 +1,4 @@
-import { Footer } from ".";
+import { Footer, Header } from ".";
 import { Metadata } from "../metadata";
 import { Rubik } from "next/font/google";
 
@@ -10,7 +10,8 @@ export default function AppLayout({ children }) {
       className={`min-h-screen flex flex-col text-root_beer bg-seashell ${rubik.className}`}
     >
       <Metadata />
-      <main className="w-full max-w-3xl flex-1 px-4 mx-auto">{children}</main>
+      <Header />
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );

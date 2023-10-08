@@ -1,12 +1,23 @@
 export function USDFormat(number) {
-  return number?.toLocaleString("en-US", {
+  if (number < 1) {
+    return number.toFixed(4);
+  }
+
+  return number.toLocaleString("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 2,
-    maximumFractionDigits: 4,
+    maximumFractionDigits: 2,
   });
 }
 
 export function NumberFormat(number) {
-  return number.toLocaleString();
+  if (number < 1) {
+    return number.toFixed(4);
+  }
+
+  return number.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }

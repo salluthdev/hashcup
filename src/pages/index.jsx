@@ -7,7 +7,7 @@ export default function Home() {
   const mounted = useIsMounted();
 
   return (
-    <div className="relative pt-6 py-10">
+    <div className="relative">
       {mounted ? !isConnected ? <Hello /> : <Dashboard /> : null}
     </div>
   );
