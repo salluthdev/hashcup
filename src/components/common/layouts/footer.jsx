@@ -19,7 +19,7 @@ const CREATOR_SOCIAL = [
 export default function Footer() {
   return (
     <div className="w-full flex flex-col gap-5 items-center bg-very_pale_orange py-10 px-4">
-      <p>Connect with The Creator - @salluthdev</p>
+      <p className="text-center">Connect with The Creator - @salluthdev</p>
       <div className="flex items-center gap-4">
         {CREATOR_SOCIAL.map((social) => (
           <Link key={social.name} href={social.link} target="_blank">

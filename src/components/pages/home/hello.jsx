@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Hello() {
   return (
-    <div className="max-w-sm flex flex-col items-center gap-4 text-center mx-auto">
+    <div className="max-w-sm flex flex-col items-center gap-4 text-center px-4 mx-auto">
       <Image
         src={"/img/hashcup-logo-dummy.png"}
         width={80}
@@ -12,8 +12,8 @@ export default function Hello() {
       />
       <h1 className="text-2xl font-bold">Say Hello to HashCup 👋</h1>
       <p>
-        Simple link to your crypto wallet. Manage your multichain assets at once
-        in one cup.
+        Simple link to your crypto wallet. Manage your multichain assets in one
+        cup.
       </p>
       <ConnectButton />
     </div>
