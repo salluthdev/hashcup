@@ -118,7 +118,7 @@ export default function Dashboard() {
             !token?.possible_spam && (
               <div
                 key={index}
-                className="flex items-center gap-4 hover:bg-linen rounded-lg py-2 px-6 -mx-6 cursor-pointer"
+                className="group flex items-center gap-4 hover:bg-linen rounded-lg py-2 px-6 -mx-6 cursor-pointer"
               >
                 <Image
                   src={`/img/token/${token?.network}/${
@@ -127,7 +127,7 @@ export default function Dashboard() {
                   width={24}
                   height={24}
                   alt=""
-                  className="rounded-full"
+                  className="group-hover:scale-105 group-active:scale-95 transition rounded-full"
                 />
                 <div className="flex-1 flex flex-col gap-2">
                   <div className="flex justify-between items-center gap-4">
