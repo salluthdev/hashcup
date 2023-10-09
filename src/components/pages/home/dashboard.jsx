@@ -1,8 +1,10 @@
 import {
   NumberFormat,
   USDFormat,
+  calculateTotalNetWorth,
   getNativeTokenData,
   getNonNativeTokenData,
+  sortTokenList,
   startMoralis,
 } from "@/utils";
 import Image from "next/image";
@@ -34,36 +36,11 @@ export default function Dashboard() {
       const flattenedBalances = allBalances.flat();
 
       // Short tokenlist from higher total balance to lower
-      const calculateTotalBalance = (token) => {
-        if (!token?.possible_spam) {
-          return (token?.balance / 10 ** token?.decimals) * token?.price;
-        }
-        return 0;
-      };
-
-      const compareTokens = (tokenA, tokenB) => {
-        const totalBalanceA = calculateTotalBalance(tokenA);
-        const totalBalanceB = calculateTotalBalance(tokenB);
-
-        return totalBalanceB - totalBalanceA;
-      };
-
-      const sortedTokenList = flattenedBalances
-        .filter((token) => !token?.possible_spam)
-        .sort(compareTokens);
-
+      const sortedTokenList = sortTokenList(flattenedBalances);
       setTokenList(sortedTokenList);
 
       // Calculate total net worth
-      const netWorth = flattenedBalances.reduce((total, token) => {
-        if (!token?.possible_spam) {
-          return (
-            total + (token?.balance / 10 ** token?.decimals) * token?.price
-          );
-        }
-        return total;
-      }, 0);
-
+      const netWorth = calculateTotalNetWorth(sortedTokenList);
       setTotalNetWorth(netWorth);
     } catch (error) {
       console.log(error);

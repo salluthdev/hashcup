@@ -26,7 +26,7 @@ export async function getNativeTokenData(chainId, address) {
     decimals: 18,
     network: getNetworkNameByChainId(chainId),
     symbol: chainId === "0x1" ? "ETH" : chainId === "0x38" ? "BNB" : "MATIC",
-    price: await getTokenPrice(nativeWrappedTokenAddresses[chainId], chainId),
+    price: await getTokenPrices(nativeWrappedTokenAddresses[chainId], chainId),
   };
 }
 
@@ -48,7 +48,48 @@ export async function getNonNativeTokenData(chainId, address) {
     return {
       ...token,
       network: getNetworkNameByChainId(chainId),
-      price: await getTokenPrice(token.token_address, chainId),
+      price: await getTokenPrices(token.token_address, chainId),
     };
   });
+}
+
+export const getTokenPrices = async (tokenAddress, chainId) => {
+  try {
+    const tokenPriceResponse = await Moralis.EvmApi.token.getTokenPrice({
+      address: tokenAddress,
+      chain: chainId,
+    });
+
+    return tokenPriceResponse?.toJSON()?.usdPrice || 0;
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+};
+
+export function sortTokenList(tokenList) {
+  const calculateTotalBalance = (token) => {
+    if (!token?.possible_spam) {
+      return (token?.balance / 10 ** token?.decimals) * token?.price;
+    }
+    return 0;
+  };
+
+  const compareTokens = (tokenA, tokenB) => {
+    const totalBalanceA = calculateTotalBalance(tokenA);
+    const totalBalanceB = calculateTotalBalance(tokenB);
+
+    return totalBalanceB - totalBalanceA;
+  };
+
+  return tokenList.filter((token) => !token?.possible_spam).sort(compareTokens);
+}
+
+export function calculateTotalNetWorth(tokenList) {
+  return tokenList.reduce((total, token) => {
+    if (!token?.possible_spam) {
+      return total + (token?.balance / 10 ** token?.decimals) * token?.price;
+    }
+    return total;
+  }, 0);
 }
