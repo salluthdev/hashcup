@@ -1,5 +1,4 @@
 import Moralis from "moralis";
-import { getNetworkNameByChainId, getTokenPrice } from "@/utils";
 
 const nativeWrappedTokenAddresses = {
   "0x1": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -12,6 +11,19 @@ export async function startMoralis() {
     await Moralis.start({
       apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
     });
+  }
+}
+
+export function getNetworkNameByChainId(chainId) {
+  switch (chainId) {
+    case "0x1":
+      return "eth";
+    case "0x38":
+      return "bsc";
+    case "0x89":
+      return "polygon";
+    default:
+      return "";
   }
 }
 
