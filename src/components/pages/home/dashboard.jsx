@@ -1,20 +1,15 @@
 import {
   NumberFormat,
   USDFormat,
-  getNetworkNameByChainId,
-  getTokenPrice,
+  getNativeTokenData,
+  getNonNativeTokenData,
+  startMoralis,
 } from "@/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-const Moralis = require("moralis").default;
 
 const chainIds = ["0x1", "0x38", "0x89"];
-const nativeWrappedTokenAddresses = {
-  "0x1": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-  "0x38": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-  "0x89": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
-};
 
 export default function Dashboard() {
   const { address } = useAccount();
@@ -25,66 +20,17 @@ export default function Dashboard() {
 
   const getTokenDatas = async () => {
     try {
-      if (!Moralis.Core.isStarted) {
-        await Moralis.start({
-          apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
-        });
-      }
+      await startMoralis();
 
-      const getTokenBalances = chainIds.map(async (chainId) => {
-        // Get native token balance and price
-        const nativeBalanceResponse =
-          await Moralis.EvmApi.balance.getNativeBalance({
-            address,
-            chain: chainId,
-          });
-
-        const nativeTokenData = {
-          balance: nativeBalanceResponse.toJSON().balance,
-          decimals: 18,
-          network: getNetworkNameByChainId(chainId),
-          symbol:
-            chainId === "0x1"
-              ? "ETH"
-              : chainId === "0x38"
-              ? "BNB"
-              : chainId === "0x89"
-              ? "MATIC"
-              : "",
-          price: await getTokenPrice(
-            nativeWrappedTokenAddresses[chainId],
-            chainId
-          ),
-        };
-
-        // Get non-native token balance and price
-        const tokenResponse = await Moralis.EvmApi.token.getWalletTokenBalances(
-          {
-            address,
-            chain: chainId,
-          }
-        );
-
-        const tokenData = tokenResponse.toJSON().map(async (token) => {
-          if (token.possible_spam) {
-            return {
-              ...token,
-              network: getNetworkNameByChainId(chainId),
-              price: 0,
-            };
-          }
-
-          return {
-            ...token,
-            network: getNetworkNameByChainId(chainId),
-            price: await getTokenPrice(token.token_address, chainId),
-          };
-        });
+      // Get native and non-native token data
+      const getTokenData = chainIds.map(async (chainId) => {
+        const nativeTokenData = await getNativeTokenData(chainId, address);
+        const tokenData = await getNonNativeTokenData(chainId, address);
 
         return Promise.all([nativeTokenData, ...tokenData]);
       });
 
-      const allBalances = await Promise.all(getTokenBalances);
+      const allBalances = await Promise.all(getTokenData);
       const flattenedBalances = allBalances.flat();
 
       // Short tokenlist from higher total balance to lower
