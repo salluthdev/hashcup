@@ -65,7 +65,7 @@ export async function getNonNativeTokenData(chainId, address) {
   });
 }
 
-export const getTokenPrices = async (tokenAddress, chainId) => {
+export async function getTokenPrices(tokenAddress, chainId) {
   try {
     const tokenPriceResponse = await Moralis.EvmApi.token.getTokenPrice({
       address: tokenAddress,
@@ -77,7 +77,7 @@ export const getTokenPrices = async (tokenAddress, chainId) => {
     console.log(error);
     return 0;
   }
-};
+}
 
 export function sortTokenList(tokenList) {
   const calculateTotalBalance = (token) => {
