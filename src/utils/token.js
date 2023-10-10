@@ -27,6 +27,15 @@ export function getNetworkNameByChainId(chainId) {
   }
 }
 
+export async function getTokenPrices(tokenAddress, chainId) {
+  const tokenPriceResponse = await Moralis.EvmApi.token.getTokenPrice({
+    address: tokenAddress,
+    chain: chainId,
+  });
+
+  return tokenPriceResponse?.toJSON()?.usdPrice || 0;
+}
+
 export async function getNativeTokenData(chainId, address) {
   const nativeBalanceResponse = await Moralis.EvmApi.balance.getNativeBalance({
     address,
@@ -63,20 +72,6 @@ export async function getNonNativeTokenData(chainId, address) {
       price: await getTokenPrices(token.token_address, chainId),
     };
   });
-}
-
-export async function getTokenPrices(tokenAddress, chainId) {
-  try {
-    const tokenPriceResponse = await Moralis.EvmApi.token.getTokenPrice({
-      address: tokenAddress,
-      chain: chainId,
-    });
-
-    return tokenPriceResponse?.toJSON()?.usdPrice || 0;
-  } catch (error) {
-    console.log(error);
-    return 0;
-  }
 }
 
 export function sortTokenList(tokenList) {
