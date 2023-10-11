@@ -5,7 +5,7 @@ export default function Hello() {
   return (
     <div className="max-w-sm flex flex-col items-center gap-4 text-center px-4 mx-auto">
       <Image
-        src={"/img/hashcup-logo-dummy.png"}
+        src={"/img/hashcup-logo.png"}
         width={80}
         height={80}
         alt="hashcup-logo"

@@ -18,7 +18,7 @@ export default function Metadata({ title }) {
       />
       <meta name="author" content="salluthdev" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="icon" href="/img/hashcup-logo-dummy.png " />
+      <link rel="icon" href="/img/hashcup-logo-bg-white.jpg?v1 " />
     </Head>
   );
 }

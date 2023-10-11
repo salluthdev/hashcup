@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <div className="w-full max-w-3xl flex justify-between items-center pt-8 px-4 mx-auto">
       <Image
-        src={"/img/hashcup-logo-dummy.png"}
+        src={"/img/hashcup-logo.png"}
         width={40}
         height={40}
         alt="hashcup logo"
