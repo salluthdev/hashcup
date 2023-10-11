@@ -57,14 +57,15 @@ export default function Dashboard() {
   return (
     <>
       <div className="w-full max-w-3xl flex flex-col gap-6 px-4 mx-auto">
-        <h1 className="text-2xl font-bold">
-          Wallet: {USDFormat(totalNetWorth)}
-        </h1>
+        <div className="flex items-center gap-2">
+          <h1 className="text-[28px] font-bold">{USDFormat(totalNetWorth)}</h1>
+          <p className="text-sm text-pastel_brown">(Net Worth)</p>
+        </div>
         <div className="flex flex-col">
           {tokenList.map((token, index) => (
             <div
               key={index}
-              className="group flex items-center gap-4 hover:bg-linen rounded-lg py-2 px-6 -mx-6 cursor-pointer"
+              className="group flex items-center gap-4 hover:bg-linen transition rounded-lg py-2 px-6 -mx-6 cursor-pointer"
               onClick={() => {
                 setSelectedTokenDetail(token);
                 setModal("modal-token-detail");
