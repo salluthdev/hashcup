@@ -18,6 +18,7 @@ export default function Dashboard() {
   const { address } = useAccount();
   const [tokenList, setTokenList] = useState([]);
   const [totalNetWorth, setTotalNetWorth] = useState(0);
+  const [selectedTokenDetail, setSelectedTokenDetail] = useState([]);
   const [modal, setModal] = useState("");
 
   console.log(tokenList);
@@ -64,7 +65,10 @@ export default function Dashboard() {
             <div
               key={index}
               className="group flex items-center gap-4 hover:bg-linen rounded-lg py-2 px-6 -mx-6 cursor-pointer"
-              onClick={() => setModal("modal-token-detail")}
+              onClick={() => {
+                setSelectedTokenDetail(token);
+                setModal("modal-token-detail");
+              }}
             >
               <Image
                 src={`/img/token/${token?.network}/${
@@ -105,7 +109,10 @@ export default function Dashboard() {
         </div>
       </div>
       {modal === "modal-token-detail" && (
-        <ModalTokenDetail setModal={setModal} />
+        <ModalTokenDetail
+          setModal={setModal}
+          selectedTokenDetail={selectedTokenDetail}
+        />
       )}
     </>
   );
