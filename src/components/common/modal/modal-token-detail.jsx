@@ -1,5 +1,6 @@
 import { USDFormat, shortenAddress } from "@/utils";
 import { Modal } from ".";
+import Image from "next/image";
 
 export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
   return (
@@ -19,9 +20,18 @@ export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
       {selectedTokenDetail.token_address && (
         <div className="flex justify-between items-center gap-4 text-sm">
           <p>Address:</p>
-          <p className="truncate">
-            {shortenAddress(selectedTokenDetail.token_address)}
-          </p>
+          <div className="group flex items-center gap-1 cursor-pointer">
+            <p className="truncate">
+              {shortenAddress(selectedTokenDetail.token_address)}
+            </p>
+            <Image
+              src={"/svg/icon-copy.svg"}
+              width={12}
+              height={12}
+              alt=""
+              className="group-hover:scale-105 group-active:scale-95 transition"
+            />
+          </div>
         </div>
       )}
     </Modal>
