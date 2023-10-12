@@ -6,6 +6,21 @@ const nativeWrappedTokenAddresses = {
   "0x89": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
 };
 
+const nativeTokenData = {
+  "0x1": {
+    name: "Ethereum",
+    symbol: "ETH",
+  },
+  "0x38": {
+    name: "Binance Coin",
+    symbol: "BNB",
+  },
+  "0x89": {
+    name: "Polygon",
+    symbol: "MATIC",
+  },
+};
+
 export async function startMoralis() {
   if (!Moralis.Core.isStarted) {
     await Moralis.start({
@@ -42,11 +57,14 @@ export async function getNativeTokenData(chainId, address) {
     chain: chainId,
   });
 
+  const nativeToken = nativeTokenData[chainId];
+
   return {
+    name: nativeToken.name,
     balance: nativeBalanceResponse.toJSON().balance,
     decimals: 18,
     network: getNetworkNameByChainId(chainId),
-    symbol: chainId === "0x1" ? "ETH" : chainId === "0x38" ? "BNB" : "MATIC",
+    symbol: nativeToken.symbol,
     price: await getTokenPrices(nativeWrappedTokenAddresses[chainId], chainId),
   };
 }
