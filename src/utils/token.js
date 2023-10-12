@@ -118,3 +118,14 @@ export function calculateTotalNetWorth(tokenList) {
     return total;
   }, 0);
 }
+
+export function shortenAddress(address, length = 4) {
+  if (!address || address.length <= length) {
+    return address;
+  }
+
+  const prefix = address.substring(0, 2 + length);
+  const suffix = address.slice(-length);
+
+  return `${prefix}...${suffix}`;
+}

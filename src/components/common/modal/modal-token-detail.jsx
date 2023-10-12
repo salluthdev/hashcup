@@ -1,4 +1,4 @@
-import { USDFormat } from "@/utils";
+import { USDFormat, shortenAddress } from "@/utils";
 import { Modal } from ".";
 
 export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
@@ -19,7 +19,9 @@ export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
       {selectedTokenDetail.token_address && (
         <div className="flex justify-between items-center gap-4 text-sm">
           <p>Address:</p>
-          <p className="truncate">{selectedTokenDetail.token_address}</p>
+          <p className="truncate">
+            {shortenAddress(selectedTokenDetail.token_address)}
+          </p>
         </div>
       )}
     </Modal>
