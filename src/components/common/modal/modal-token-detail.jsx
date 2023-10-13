@@ -11,6 +11,10 @@ export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
         <p>{selectedTokenDetail.name ? selectedTokenDetail.name : "-"}</p>
       </div>
       <div className="flex justify-between items-center gap-4 text-sm">
+        <p>Symbol:</p>
+        <p>{selectedTokenDetail.symbol ? selectedTokenDetail.symbol : "-"}</p>
+      </div>
+      <div className="flex justify-between items-center gap-4 text-sm">
         <p>Price:</p>
         <p>
           {USDFormat(

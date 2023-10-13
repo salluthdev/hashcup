@@ -12,6 +12,7 @@ const config = {
         pastel_brown: "#7d6d60",
         very_pale_orange: "#ffd8c1",
         linen: "#f9ede5",
+        brandeis_blue: "#0e76fd",
       },
       keyframes: {
         opacity: {
