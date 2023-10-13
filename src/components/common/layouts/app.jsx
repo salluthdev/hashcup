@@ -3,6 +3,8 @@ import { Footer, Header } from ".";
 import { Metadata } from "../metadata";
 import { Rubik } from "next/font/google";
 import { useIsMounted } from "@/hooks";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -18,6 +20,7 @@ export default function AppLayout({ children }) {
       {mounted ? isConnected ? <Header /> : null : null}
       <main className="flex-1 py-10">{children}</main>
       <Footer />
+      <ToastContainer position="top-center" autoClose={1200} />
     </div>
   );
 }

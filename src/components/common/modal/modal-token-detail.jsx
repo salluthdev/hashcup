@@ -1,6 +1,7 @@
 import { USDFormat, shortenAddress } from "@/utils";
 import { Modal } from ".";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
   return (
@@ -20,7 +21,13 @@ export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
       {selectedTokenDetail.token_address && (
         <div className="flex justify-between items-center gap-4 text-sm">
           <p>Address:</p>
-          <div className="group flex items-center gap-1 cursor-pointer">
+          <div
+            className="group flex items-center gap-1 cursor-pointer"
+            onClick={() => {
+              navigator.clipboard.writeText(selectedTokenDetail.token_address);
+              toast.success("Address Copied");
+            }}
+          >
             <p className="truncate">
               {shortenAddress(selectedTokenDetail.token_address)}
             </p>
