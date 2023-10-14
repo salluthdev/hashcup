@@ -14,7 +14,7 @@ export default function AppLayout({ children }) {
 
   return (
     <div
-      className={`min-h-screen flex flex-col text-root_beer bg-seashell ${rubik.className}`}
+      className={`min-h-[100dvh] flex flex-col text-root_beer bg-seashell ${rubik.className}`}
     >
       <Metadata />
       {mounted ? isConnected ? <Header /> : null : null}
