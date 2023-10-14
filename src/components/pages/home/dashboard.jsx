@@ -56,7 +56,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="w-full max-w-3xl flex flex-col gap-6 px-4 mx-auto">
+      <div className="w-full max-w-2xl flex flex-col gap-6 px-4 mx-auto">
         <div className="flex items-center gap-2">
           <h1 className="text-[28px] font-bold">{USDFormat(totalNetWorth)}</h1>
           <p className="text-sm text-pastel_brown">(Net Worth)</p>
