@@ -38,7 +38,7 @@ export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
           shortenAddress(selectedTokenDetail.token_address),
           () => {
             navigator.clipboard.writeText(selectedTokenDetail.token_address);
-            toast.success("Address Copied");
+            toast.success("Address Copied 🥳🎉");
           }
         )}
     </Modal>

@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --toastify-color-success: #4eef76;
+  --toastify-color-success: #0e76fd !important;
+  --toastify-font-family: default !important;
 }
 
 @layer base {
