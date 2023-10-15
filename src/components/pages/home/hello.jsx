@@ -25,7 +25,7 @@ export default function Hello() {
         Connect Wallet
       </Button>
       <p className="text-sm mt-4">
-        Don't have an address?{" "}
+        Don&apos;t have an address?{" "}
         <span
           className="font-medium underline cursor-pointer"
           onClick={() =>
