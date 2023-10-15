@@ -122,8 +122,10 @@ export default function Dashboard() {
               </div>
             ))
           ) : !isLoading ? (
-            <p>Oops! No asset detected in this wallet address :(</p>
-          ) : null}
+            <p>Oops! Our API get limit reached today :(</p>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
       </div>
       {modal === "modal-token-detail" && (
