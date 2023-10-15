@@ -1,10 +1,11 @@
 import { TrackedAddressContext } from "@/context";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useContext } from "react";
 
 export default function Hello() {
   const { setTrackedAddress } = useContext(TrackedAddressContext);
+  const { openConnectModal } = useConnectModal();
 
   return (
     <div className="max-w-sm flex flex-col items-center gap-4 text-center px-4 mx-auto">
@@ -19,7 +20,7 @@ export default function Hello() {
         Simple link to your crypto wallet. Manage your multichain assets in one
         cup.
       </p>
-      <ConnectButton />
+      <button onClick={openConnectModal}>Connect Wallet</button>
       <p className="text-sm mt-10">
         Don't have an address?{" "}
         <span
