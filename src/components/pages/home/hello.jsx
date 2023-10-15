@@ -20,12 +20,12 @@ export default function Hello() {
         cup.
       </p>
       <ConnectButton />
-      <p>
+      <p className="text-sm mt-10">
         Don't have an address?{" "}
         <span
-          className="underline"
+          className="font-medium underline cursor-pointer"
           onClick={() =>
-            setTrackedAddress("0x746131f30E5f704713c942Da54B011106428ca97")
+            setTrackedAddress("0x49fC7F7E4FFd2a7C6066E51946E58D0Ec6DDaAfB")
           }
         >
           View demo

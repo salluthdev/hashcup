@@ -1,13 +1,19 @@
 import { Dashboard, Hello } from "@/components/pages/home";
 import { TrackedAddressContext } from "@/context";
 import { useIsMounted } from "@/hooks";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useAccount } from "wagmi";
 
 export default function Home() {
   const { isConnected } = useAccount();
   const mounted = useIsMounted();
-  const { trackedAddress } = useContext(TrackedAddressContext);
+  const { trackedAddress, setTrackedAddress } = useContext(
+    TrackedAddressContext
+  );
+
+  useEffect(() => {
+    isConnected && setTrackedAddress("");
+  }, [isConnected]);
 
   return (
     <div className="relative">
