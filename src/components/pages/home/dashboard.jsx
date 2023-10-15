@@ -28,6 +28,7 @@ export default function Dashboard() {
 
   const getTokenDatas = async () => {
     setIsLoading(true);
+    setTokenList([]);
 
     try {
       await startMoralis();

@@ -1,6 +1,6 @@
 import { Button } from "@/components/common/button";
 import { TrackedAddressContext } from "@/context";
-import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useContext } from "react";
 
@@ -18,7 +18,7 @@ export default function Hello() {
       />
       <h1 className="text-2xl font-bold">Say Hello to HashCup 👋</h1>
       <p>
-        Simple link to your crypto wallet. Manage your multichain assets in one
+        Multichain assets manager. Track your wallet overview at once in one
         cup.
       </p>
       <Button onClick={openConnectModal} withoutHoverAnim>
