@@ -1,3 +1,4 @@
+import { Button } from "@/components/common/button";
 import { TrackedAddressContext } from "@/context";
 import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
@@ -20,8 +21,10 @@ export default function Hello() {
         Simple link to your crypto wallet. Manage your multichain assets in one
         cup.
       </p>
-      <button onClick={openConnectModal}>Connect Wallet</button>
-      <p className="text-sm mt-10">
+      <Button onClick={openConnectModal} withoutHoverAnim>
+        Connect Wallet
+      </Button>
+      <p className="text-sm mt-4">
         Don't have an address?{" "}
         <span
           className="font-medium underline cursor-pointer"
