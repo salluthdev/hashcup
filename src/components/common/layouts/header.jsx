@@ -1,8 +1,18 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Header() {
+  const [githubStars, setGithubStars] = useState();
+
+  // Counting github repo stars
+  useEffect(() => {
+    fetch("https://api.github.com/repos/salluthdev/hashcup")
+      .then((res) => res.json())
+      .then((data) => setGithubStars(data.stargazers_count));
+  }, []);
+
   return (
     <div className="w-full max-w-2xl flex justify-between items-center pt-8 px-4 mx-auto">
       <Link href={"/"}>
@@ -20,7 +30,7 @@ export default function Header() {
           className="flex items-center gap-1 bg-white rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.1)] py-2 px-3 hover:scale-105 active:scale-95 transition cursor-pointer"
         >
           <Image src={"/svg/icon-star.svg"} width={16} height={16} alt="" />
-          <p className="font-medium text-brandeis_blue">21</p>
+          <p className="font-medium text-brandeis_blue">{githubStars}</p>
         </Link>
         <ConnectButton showBalance={false} chainStatus={"none"} />
       </div>
