@@ -13,7 +13,13 @@ export default function Header() {
           alt="hashcup logo"
         />
       </Link>
-      <ConnectButton showBalance={false} chainStatus={"none"} />
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1 bg-white rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.1)] py-2 px-3 hover:scale-105 active:scale-95 transition cursor-pointer">
+          <Image src={"/svg/icon-star.svg"} width={20} height={20} alt="" />
+          <p className="font-medium">2</p>
+        </div>
+        <ConnectButton showBalance={false} chainStatus={"none"} />
+      </div>
     </div>
   );
 }
