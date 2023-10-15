@@ -21,7 +21,7 @@ export default function AppLayout({ children }) {
     >
       <Metadata />
       {mounted ? isConnected || trackedAddress ? <Header /> : null : null}
-      <main className="flex-1 py-10">{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
       <ToastContainer position="top-center" autoClose={1200} />
     </div>
