@@ -9,6 +9,7 @@ import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { mainnet, bsc, polygon } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { AppLayout } from "@/components/common/layouts";
+import { TrackedAddressProvider } from "@/context";
 
 const { chains, publicClient } = configureChains(
   [mainnet, bsc, polygon],
@@ -38,9 +39,11 @@ export default function App({ Component, pageProps }) {
           borderRadius: "medium",
         })}
       >
-        <AppLayout>
-          <Component {...pageProps} />
-        </AppLayout>
+        <TrackedAddressProvider>
+          <AppLayout>
+            <Component {...pageProps} />
+          </AppLayout>
+        </TrackedAddressProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   );

@@ -1,4 +1,5 @@
 import { ModalTokenDetail } from "@/components/common/modal";
+import { TrackedAddressContext } from "@/context";
 import {
   NumberFormat,
   USDFormat,
@@ -9,13 +10,14 @@ import {
   startMoralis,
 } from "@/utils";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
 const chainIds = ["0x1", "0x38", "0x89"];
 
 export default function Dashboard() {
   const { address } = useAccount();
+  const { trackedAddress } = useContext(TrackedAddressContext);
   const [tokenList, setTokenList] = useState([]);
   const [totalNetWorth, setTotalNetWorth] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,8 +34,14 @@ export default function Dashboard() {
 
       // Get native and non-native token data
       const getTokenData = chainIds.map(async (chainId) => {
-        const nativeTokenData = await getNativeTokenData(chainId, address);
-        const tokenData = await getNonNativeTokenData(chainId, address);
+        const nativeTokenData = await getNativeTokenData(
+          chainId,
+          address || trackedAddress
+        );
+        const tokenData = await getNonNativeTokenData(
+          chainId,
+          address || trackedAddress
+        );
 
         return Promise.all([nativeTokenData, ...tokenData]);
       });
@@ -56,7 +64,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     getTokenDatas();
-  }, [address]);
+  }, [address, trackedAddress]);
 
   return (
     <>

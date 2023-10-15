@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Header() {
-  const [githubStars, setGithubStars] = useState();
+  const [githubStars, setGithubStars] = useState(0);
 
   // Counting github repo stars
   useEffect(() => {
