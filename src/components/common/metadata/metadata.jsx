@@ -10,11 +10,11 @@ export default function Metadata({ title }) {
       </title>
       <meta
         name="description"
-        content="Your clean and transparent crypto assets manager. Easily track your Ethereum, Binance Smart Chain (BSC), and Polygon network assets in one cup. Explore the smooth Pacoca alternative with HashCup and dive into our open-source code on GitHub."
+        content="Your clean and simple crypto assets manager. Easily track your Ethereum, Binance Smart Chain (BSC), and Polygon network assets in one cup. Explore the smooth Pacoca alternative with HashCup."
       />
       <meta
         name="keywords"
-        content="multiple assets manager, multichain assets management, crypto assets manager, pacoca alternative, ethereum assets manager, bsc assets manager, polygon assets manager, cryptocurrency assets tracking"
+        content="hashcup, multichain assets manager, metamask assets overview, pacoca alternative, ethereum assets manager, bsc assets manager, polygon assets manager, crypto assets tracker"
       />
       <meta name="author" content="salluthdev" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
