@@ -23,6 +23,7 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTokenDetail, setSelectedTokenDetail] = useState([]);
   const [modal, setModal] = useState("");
+  const [tokenImageError, setTokenImageError] = useState(false);
 
   console.log(tokenList);
 
@@ -85,15 +86,28 @@ export default function Dashboard() {
                   setModal("modal-token-detail");
                 }}
               >
-                <Image
-                  src={`/img/token/${token?.network}/${
-                    token?.token_address ? token?.token_address : "native"
-                  }.png`}
-                  width={24}
-                  height={24}
-                  alt=""
-                  className="group-hover:scale-105 group-active:scale-95 transition rounded-full"
-                />
+                <div className="relative">
+                  {tokenImageError !== token?.token_address ? (
+                    <Image
+                      src={`/img/token/${token?.network}/${
+                        token?.token_address ? token?.token_address : "native"
+                      }.png`}
+                      width={24}
+                      height={24}
+                      alt=""
+                      className="group-hover:scale-105 group-active:scale-95 transition rounded-full"
+                      onError={() => {
+                        setTokenImageError(token?.token_address);
+                      }}
+                    />
+                  ) : (
+                    <div className="w-6 h-6 flex justify-center items-center bg-root_beer rounded-full">
+                      <span className="text-xs font-medium text-white">
+                        {token?.symbol[0].toUpperCase()}
+                      </span>
+                    </div>
+                  )}
+                </div>
                 <div className="flex-1 flex flex-col gap-2">
                   <div className="flex justify-between items-center gap-4">
                     <p className="font-medium">{token?.symbol}</p>
