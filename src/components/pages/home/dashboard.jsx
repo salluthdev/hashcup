@@ -23,9 +23,7 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTokenDetail, setSelectedTokenDetail] = useState([]);
   const [modal, setModal] = useState("");
-  const [tokenImageError, setTokenImageError] = useState(false);
-
-  console.log(tokenList);
+  const [tokenImageError, setTokenImageError] = useState([]);
 
   const getTokenDatas = async () => {
     setIsLoading(true);
@@ -87,7 +85,7 @@ export default function Dashboard() {
                 }}
               >
                 <div className="relative">
-                  {tokenImageError !== token?.token_address ? (
+                  {!tokenImageError.includes(token?.token_address) ? (
                     <Image
                       src={`/img/token/${token?.network}/${
                         token?.token_address ? token?.token_address : "native"
@@ -97,7 +95,10 @@ export default function Dashboard() {
                       alt=""
                       className="group-hover:scale-105 group-active:scale-95 transition rounded-full"
                       onError={() => {
-                        setTokenImageError(token?.token_address);
+                        setTokenImageError((prevErrors) => [
+                          ...prevErrors,
+                          token?.token_address,
+                        ]);
                       }}
                     />
                   ) : (
