@@ -7,6 +7,10 @@
   --toastify-font-family: default !important;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 @layer base {
   p,
   input {

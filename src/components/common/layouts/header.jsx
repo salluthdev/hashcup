@@ -25,7 +25,7 @@ export default function Header() {
 
   return (
     <div className="w-full sticky top-0 flex justify-center bg-seashell z-20">
-      <div className="w-full max-w-2xl relative flex justify-between items-center pt-8 pb-4 px-4">
+      <div className="w-full max-w-xl relative flex flex-wrap justify-between items-center gap-4 pt-8 pb-4 px-4">
         <div className="cursor-pointer scroll-smooth" onClick={handleLogoClick}>
           <Image
             src={"/img/hashcup-logo.png"}
