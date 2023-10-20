@@ -1,4 +1,4 @@
-##Hashcup - Manager Your Multichain Assets##
+## Hashcup - Manager Your Multichain Assets
 
 With Hashcup, managing assets from supported chains like ETH, BNB, and Polygon is awesome. No more switching between platforms. 🔄✨
 
