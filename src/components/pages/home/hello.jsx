@@ -58,7 +58,7 @@ export default function Hello() {
         <span
           className="font-medium underline cursor-pointer"
           onClick={() =>
-            setTrackedAddress("0x49fC7F7E4FFd2a7C6066E51946E58D0Ec6DDaAfB")
+            setTrackedAddress("0x746131f30E5f704713c942Da54B011106428ca97")
           }
         >
           View demo
