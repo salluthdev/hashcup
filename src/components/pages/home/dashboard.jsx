@@ -1,4 +1,7 @@
-import { ModalTokenDetail } from "@/components/common/modal";
+import {
+  ModalTokenDetail,
+  ModalTokenTransfer,
+} from "@/components/common/modal";
 import { TrackedAddressContext } from "@/context";
 import {
   NumberFormat,
@@ -137,7 +140,11 @@ export default function Dashboard() {
                 </div>
                 <div
                   className="group bg-linen hover:bg-root_beer rounded-lg p-2 transition"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedTokenDetail(token);
+                    setModal("modal-token-transfer");
+                  }}
                 >
                   <Image
                     src={"/svg/icon-send.svg"}
@@ -163,11 +170,18 @@ export default function Dashboard() {
           )}
         </div>
       </div>
-      {modal === "modal-token-detail" && (
+      {modal === "modal-token-detail" ? (
         <ModalTokenDetail
           setModal={setModal}
           selectedTokenDetail={selectedTokenDetail}
         />
+      ) : (
+        modal === "modal-token-transfer" && (
+          <ModalTokenTransfer
+            setModal={setModal}
+            selectedTokenDetail={selectedTokenDetail}
+          />
+        )
       )}
     </>
   );
