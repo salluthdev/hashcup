@@ -11,8 +11,6 @@ export default function Hello() {
   const { openConnectModal } = useConnectModal();
   const [address, setAddress] = useState("");
 
-  console.log(address.length);
-
   return (
     <div className="max-w-sm flex flex-col items-center gap-7 text-center py-10 px-4 mx-auto">
       <div className="flex flex-col items-center gap-4">

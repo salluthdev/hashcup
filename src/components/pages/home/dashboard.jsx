@@ -78,7 +78,7 @@ export default function Dashboard() {
             tokenList.map((token, index) => (
               <div
                 key={index}
-                className="group flex items-center gap-4 hover:bg-linen transition rounded-lg py-2 px-6 -mx-6 cursor-pointer"
+                className="flex justify-between items-center gap-4 hover:bg-linen transition rounded-lg py-2 px-6 -mx-6 cursor-pointer"
                 onClick={() => {
                   setSelectedTokenDetail(token);
                   setModal("modal-token-detail");
@@ -93,7 +93,7 @@ export default function Dashboard() {
                       width={24}
                       height={24}
                       alt=""
-                      className="group-hover:scale-105 group-active:scale-95 transition rounded-full"
+                      className="rounded-full"
                       onError={() => {
                         setTokenImageError((prevErrors) => [
                           ...prevErrors,
@@ -134,6 +134,25 @@ export default function Dashboard() {
                       {token?.symbol}
                     </p>
                   </div>
+                </div>
+                <div
+                  className="group bg-linen hover:bg-root_beer rounded-lg p-2 transition"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Image
+                    src={"/svg/icon-send.svg"}
+                    width={16}
+                    height={16}
+                    alt=""
+                    className="group-hover:hidden"
+                  />
+                  <Image
+                    src={"/svg/icon-send-light.svg"}
+                    width={16}
+                    height={16}
+                    alt=""
+                    className="hidden group-hover:block"
+                  />
                 </div>
               </div>
             ))
