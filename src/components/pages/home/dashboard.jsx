@@ -14,6 +14,7 @@ import {
 } from "@/utils";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 
 const chainIds = ["0x1", "0x38", "0x89"];
@@ -144,6 +145,7 @@ export default function Dashboard() {
                     e.stopPropagation();
                     setSelectedTokenDetail(token);
                     setModal("modal-token-transfer");
+                    toast.info("Coming Soon 🐱‍💻");
                   }}
                 >
                   <Image

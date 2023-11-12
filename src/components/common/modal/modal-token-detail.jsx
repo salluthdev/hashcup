@@ -14,6 +14,43 @@ export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
       ? "polygonscan"
       : "";
 
+  const addTokenToMetaMask = () => {
+    // Check if MetaMask is installed
+    if (window.ethereum) {
+      const tokenData = {
+        type: "ERC20",
+        options: {
+          address: selectedTokenDetail.token_address,
+          symbol: selectedTokenDetail.symbol,
+          decimals: selectedTokenDetail.decimals,
+        },
+      };
+
+      // Request MetaMask to add the token
+      window.ethereum
+        .request({
+          method: "wallet_watchAsset",
+          params: {
+            type: "ERC20",
+            options: tokenData.options,
+          },
+        })
+        .then((success) => {
+          if (success) {
+            toast.success("Token added to MetaMask! 🥳🎉");
+          } else {
+            toast.error("Oops! Try again later 🧐");
+          }
+        })
+        .catch((error) => {
+          console.error("MetaMask error:", error);
+        });
+    } else {
+      // MetaMask is not installed, prompt the user to install it
+      toast.error("Please install Metamask 🙂");
+    }
+  };
+
   const tokenDetailRow = (label, value, clickAction) => (
     <div className="flex justify-between items-center gap-4 text-sm">
       <p>{label}:</p>
@@ -71,6 +108,7 @@ export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
             height={16}
             alt=""
             className="hover:scale-105 active:scale-95 transition cursor-pointer"
+            onClick={addTokenToMetaMask}
           />
           <Image
             src={"/svg/icon-trustwallet.svg"}
@@ -78,6 +116,7 @@ export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
             height={16}
             alt=""
             className="hover:scale-105 active:scale-95 transition cursor-pointer"
+            onClick={() => toast.info("Coming Soon 🫡")}
           />
         </div>
       )}
