@@ -75,21 +75,34 @@ export async function getNonNativeTokenData(chainId, address) {
     chain: chainId,
   });
 
-  return tokenResponse.toJSON().map(async (token) => {
-    if (token.possible_spam) {
-      return {
-        ...token,
-        network: getNetworkNameByChainId(chainId),
-        price: 0,
-      };
-    }
+  return Promise.all(
+    tokenResponse.toJSON().map(async (token) => {
+      try {
+        if (token.possible_spam) {
+          return {
+            ...token,
+            network: getNetworkNameByChainId(chainId),
+            price: 0,
+          };
+        }
 
-    return {
-      ...token,
-      network: getNetworkNameByChainId(chainId),
-      price: await getTokenPrices(token.token_address, chainId),
-    };
-  });
+        const price = await getTokenPrices(token.token_address, chainId);
+
+        return {
+          ...token,
+          network: getNetworkNameByChainId(chainId),
+          price,
+        };
+      } catch (error) {
+        console.log(error);
+        return {
+          ...token,
+          network: getNetworkNameByChainId(chainId),
+          price: 0,
+        };
+      }
+    })
+  );
 }
 
 export function sortTokenList(tokenList) {

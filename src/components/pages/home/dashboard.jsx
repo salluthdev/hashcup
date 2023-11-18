@@ -63,6 +63,7 @@ export default function Dashboard() {
       setTotalNetWorth(netWorth);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -166,7 +167,7 @@ export default function Dashboard() {
               </div>
             ))
           ) : !isLoading ? (
-            <p>Oops! Our API get limit reached today :(</p>
+            <p>Oops! Something error, please contact the developer :(</p>
           ) : (
             <p>Loading...</p>
           )}
