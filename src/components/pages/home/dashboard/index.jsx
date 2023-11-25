@@ -16,6 +16,7 @@ import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
+import Overview from "./overview";
 
 const chainIds = ["0x1", "0x38", "0x89"];
 
@@ -23,7 +24,6 @@ export default function Dashboard() {
   const { address } = useAccount();
   const { trackedAddress } = useContext(TrackedAddressContext);
   const [tokenList, setTokenList] = useState([]);
-  const [totalNetWorth, setTotalNetWorth] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTokenDetail, setSelectedTokenDetail] = useState([]);
   const [modal, setModal] = useState("");
@@ -57,10 +57,6 @@ export default function Dashboard() {
   //     const sortedTokenList = sortTokenList(flattenedBalances);
   //     setTokenList(sortedTokenList);
   //     setIsLoading(false);
-
-  //     // Calculate total net worth
-  //     const netWorth = calculateTotalNetWorth(sortedTokenList);
-  //     setTotalNetWorth(netWorth);
   //   } catch (error) {
   //     console.log(error);
   //     setIsLoading(false);
@@ -74,15 +70,11 @@ export default function Dashboard() {
   return (
     <>
       <div className="w-full max-w-xl flex flex-col gap-6 px-4 pt-6 pb-10 mx-auto">
-        <div className="flex flex-col gap-1">
-          <p className="text-sm text-pastel_brown">(Net Worth)</p>
-          <div className="flex items-center gap-2">
-            <h1 className="text-[28px] font-bold">
-              {USDFormat(totalNetWorth)}
-            </h1>
-            <Image src={"/svg/icon-eye.svg"} width={24} height={14} alt="" />
-          </div>
-        </div>
+        <Overview
+          tokenList={tokenList}
+          address={address}
+          trackedAddress={trackedAddress}
+        />
         <div className="flex flex-col">
           {tokenList.length > 0 ? (
             tokenList.map((token, index) => (
