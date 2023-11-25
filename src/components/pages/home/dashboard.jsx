@@ -29,54 +29,59 @@ export default function Dashboard() {
   const [modal, setModal] = useState("");
   const [tokenImageError, setTokenImageError] = useState([]);
 
-  const getTokenDatas = async () => {
-    setIsLoading(true);
-    setTokenList([]);
+  // const getTokenDatas = async () => {
+  //   setIsLoading(true);
+  //   setTokenList([]);
 
-    try {
-      await startMoralis();
+  //   try {
+  //     await startMoralis();
 
-      // Get native and non-native token data
-      const getTokenData = chainIds.map(async (chainId) => {
-        const nativeTokenData = await getNativeTokenData(
-          chainId,
-          address || trackedAddress
-        );
-        const tokenData = await getNonNativeTokenData(
-          chainId,
-          address || trackedAddress
-        );
+  //     // Get native and non-native token data
+  //     const getTokenData = chainIds.map(async (chainId) => {
+  //       const nativeTokenData = await getNativeTokenData(
+  //         chainId,
+  //         address || trackedAddress
+  //       );
+  //       const tokenData = await getNonNativeTokenData(
+  //         chainId,
+  //         address || trackedAddress
+  //       );
 
-        return Promise.all([nativeTokenData, ...tokenData]);
-      });
+  //       return Promise.all([nativeTokenData, ...tokenData]);
+  //     });
 
-      const allBalances = await Promise.all(getTokenData);
-      const flattenedBalances = allBalances.flat();
+  //     const allBalances = await Promise.all(getTokenData);
+  //     const flattenedBalances = allBalances.flat();
 
-      // Short tokenlist from higher total balance to lower
-      const sortedTokenList = sortTokenList(flattenedBalances);
-      setTokenList(sortedTokenList);
-      setIsLoading(false);
+  //     // Short tokenlist from higher total balance to lower
+  //     const sortedTokenList = sortTokenList(flattenedBalances);
+  //     setTokenList(sortedTokenList);
+  //     setIsLoading(false);
 
-      // Calculate total net worth
-      const netWorth = calculateTotalNetWorth(sortedTokenList);
-      setTotalNetWorth(netWorth);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
+  //     // Calculate total net worth
+  //     const netWorth = calculateTotalNetWorth(sortedTokenList);
+  //     setTotalNetWorth(netWorth);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setIsLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    getTokenDatas();
-  }, [address, trackedAddress]);
+  // useEffect(() => {
+  //   getTokenDatas();
+  // }, [address, trackedAddress]);
 
   return (
     <>
       <div className="w-full max-w-xl flex flex-col gap-6 px-4 pt-6 pb-10 mx-auto">
-        <div className="flex items-center gap-2">
-          <h1 className="text-[28px] font-bold">{USDFormat(totalNetWorth)}</h1>
+        <div className="flex flex-col gap-1">
           <p className="text-sm text-pastel_brown">(Net Worth)</p>
+          <div className="flex items-center gap-2">
+            <h1 className="text-[28px] font-bold">
+              {USDFormat(totalNetWorth)}
+            </h1>
+            <Image src={"/svg/icon-eye.svg"} width={24} height={14} alt="" />
+          </div>
         </div>
         <div className="flex flex-col">
           {tokenList.length > 0 ? (
