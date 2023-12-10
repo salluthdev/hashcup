@@ -38,43 +38,42 @@ export default function TokenList({
   const [modal, setModal] = useState<string>("");
   const [tokenImageError, setTokenImageError] = useState<string[]>([]);
 
-  const getTokenDatas = async () => {
-    setIsLoading(true);
-    setTokenList([]);
-
-    try {
-      await startMoralis();
-
-      // Get native and non-native token data
-      const getTokenData = chainIds.map(async (chainId) => {
-        const nativeTokenData = await getNativeTokenData(
-          chainId,
-          address || trackedAddress
-        );
-        const tokenData = await getNonNativeTokenData(
-          chainId,
-          address || trackedAddress
-        );
-
-        return Promise.all([nativeTokenData, ...tokenData]);
-      });
-
-      const allBalances = await Promise.all(getTokenData);
-      const flattenedBalances = allBalances.flat();
-
-      // Short tokenlist from higher total balance to lower
-      const sortedTokenList = sortTokenList(flattenedBalances);
-      setTokenList(sortedTokenList);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getTokenDatas = async () => {
+      setIsLoading(true);
+      setTokenList([]);
+
+      try {
+        await startMoralis();
+
+        // Get native and non-native token data
+        const getTokenData = chainIds.map(async (chainId) => {
+          const nativeTokenData = await getNativeTokenData(
+            chainId,
+            address || trackedAddress
+          );
+          const tokenData = await getNonNativeTokenData(
+            chainId,
+            address || trackedAddress
+          );
+
+          return Promise.all([nativeTokenData, ...tokenData]);
+        });
+
+        const allBalances = await Promise.all(getTokenData);
+        const flattenedBalances = allBalances.flat();
+
+        // Short tokenlist from higher total balance to lower
+        const sortedTokenList = sortTokenList(flattenedBalances);
+        setTokenList(sortedTokenList);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
+    };
     getTokenDatas();
-  }, [address, trackedAddress]);
+  }, [address, trackedAddress, setTokenList]);
 
   return (
     <>

@@ -116,7 +116,7 @@ export async function getNonNativeTokenData(chainId: string, address: string) {
   );
 }
 
-export function sortTokenList(tokenList: TokenDetailTypes[]) {
+export function sortTokenList(tokenList: any[]) {
   const calculateTotalBalance = (token: TokenDetailTypes) => {
     if (!token?.possible_spam) {
       return (token?.balance / 10 ** token?.decimals) * token?.price;
