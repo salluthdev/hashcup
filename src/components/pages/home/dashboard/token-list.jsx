@@ -21,6 +21,7 @@ export default function TokenList({
   setTokenList,
   address,
   trackedAddress,
+  hideBalances,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTokenDetail, setSelectedTokenDetail] = useState([]);
@@ -108,9 +109,12 @@ export default function TokenList({
                   <p className="font-medium">{token?.symbol}</p>
                   <div className="flex items-center gap-2">
                     <p className="font-semibold">
-                      {USDFormat(
-                        (token?.balance / 10 ** token?.decimals) * token?.price
-                      )}
+                      {hideBalances
+                        ? "****"
+                        : USDFormat(
+                            (token?.balance / 10 ** token?.decimals) *
+                              token?.price
+                          )}
                     </p>
                     <Image
                       src={`/svg/network/${token?.network}.svg`}
@@ -123,8 +127,12 @@ export default function TokenList({
                 <div className="flex justify-between items-center gap-4 text-pastel_brown">
                   <p>{USDFormat(token?.price ? token?.price : "-")}</p>
                   <p>
-                    {NumberFormat(token?.balance / 10 ** token?.decimals)}{" "}
-                    {token?.symbol}
+                    {hideBalances
+                      ? "****"
+                      : NumberFormat(
+                          token?.balance / 10 ** token?.decimals
+                        )}{" "}
+                    {hideBalances ? "" : token?.symbol}
                   </p>
                 </div>
               </div>
