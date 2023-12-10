@@ -13,6 +13,15 @@ import {
   ModalTokenDetail,
   ModalTokenTransfer,
 } from "@/components/common/modal/dashboard";
+import { TokenDetailTypes } from "@/types/token";
+
+interface TokenListProps {
+  tokenList: TokenDetailTypes[];
+  setTokenList: React.Dispatch<React.SetStateAction<TokenDetailTypes[]>>;
+  address: string;
+  trackedAddress: string;
+  hideBalances: boolean;
+}
 
 const chainIds = ["0x1", "0x38", "0x89"];
 
@@ -22,49 +31,49 @@ export default function TokenList({
   address,
   trackedAddress,
   hideBalances,
-}) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedTokenDetail, setSelectedTokenDetail] = useState([]);
-  const [modal, setModal] = useState("");
-  const [tokenImageError, setTokenImageError] = useState([]);
-
-  const getTokenDatas = async () => {
-    setIsLoading(true);
-    setTokenList([]);
-
-    try {
-      await startMoralis();
-
-      // Get native and non-native token data
-      const getTokenData = chainIds.map(async (chainId) => {
-        const nativeTokenData = await getNativeTokenData(
-          chainId,
-          address || trackedAddress
-        );
-        const tokenData = await getNonNativeTokenData(
-          chainId,
-          address || trackedAddress
-        );
-
-        return Promise.all([nativeTokenData, ...tokenData]);
-      });
-
-      const allBalances = await Promise.all(getTokenData);
-      const flattenedBalances = allBalances.flat();
-
-      // Short tokenlist from higher total balance to lower
-      const sortedTokenList = sortTokenList(flattenedBalances);
-      setTokenList(sortedTokenList);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
+}: TokenListProps) {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [selectedTokenDetail, setSelectedTokenDetail] =
+    useState<TokenDetailTypes>({} as TokenDetailTypes);
+  const [modal, setModal] = useState<string>("");
+  const [tokenImageError, setTokenImageError] = useState<string[]>([]);
 
   useEffect(() => {
+    const getTokenDatas = async () => {
+      setIsLoading(true);
+      setTokenList([]);
+
+      try {
+        await startMoralis();
+
+        // Get native and non-native token data
+        const getTokenData = chainIds.map(async (chainId) => {
+          const nativeTokenData = await getNativeTokenData(
+            chainId,
+            address || trackedAddress
+          );
+          const tokenData = await getNonNativeTokenData(
+            chainId,
+            address || trackedAddress
+          );
+
+          return Promise.all([nativeTokenData, ...tokenData]);
+        });
+
+        const allBalances = await Promise.all(getTokenData);
+        const flattenedBalances = allBalances.flat();
+
+        // Short tokenlist from higher total balance to lower
+        const sortedTokenList = sortTokenList(flattenedBalances);
+        setTokenList(sortedTokenList);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
+    };
     getTokenDatas();
-  }, [address, trackedAddress]);
+  }, [address, trackedAddress, setTokenList]);
 
   return (
     <>
@@ -80,7 +89,7 @@ export default function TokenList({
               }}
             >
               <div className="relative">
-                {!tokenImageError.includes(token?.token_address) ? (
+                {!tokenImageError.includes(token.token_address) ? (
                   <Image
                     src={`/img/token/${token?.network}/${
                       token?.token_address ? token?.token_address : "native"

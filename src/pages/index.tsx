@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     isConnected && setTrackedAddress("");
-  }, [isConnected]);
+  }, [isConnected, setTrackedAddress]);
 
   return (
     <div className="relative">

@@ -10,6 +10,7 @@ import { mainnet, bsc, polygon } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { AppLayout } from "@/components/common/layouts";
 import { TrackedAddressProvider } from "@/context";
+import type { AppProps } from "next/app";
 
 const { chains, publicClient } = configureChains(
   [mainnet, bsc, polygon],
@@ -18,7 +19,7 @@ const { chains, publicClient } = configureChains(
 
 const { connectors } = getDefaultWallets({
   appName: "hashcup",
-  projectId: process.env.NEXT_PUBLIC_ALCHEMY_ID,
+  projectId: process.env.NEXT_PUBLIC_ALCHEMY_ID as string,
   chains,
 });
 
@@ -28,7 +29,7 @@ const wagmiConfig = createConfig({
   publicClient,
 });
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider

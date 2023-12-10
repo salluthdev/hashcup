@@ -1,12 +1,23 @@
+import { TokenDetailTypes } from "@/types/token";
 import Moralis from "moralis";
 
-const nativeWrappedTokenAddresses = {
+interface NativeWrappedTokenAddressesTypes {
+  [key: string]: string;
+}
+interface NativeTokenDataTypes {
+  [key: string]: {
+    name: string;
+    symbol: string;
+  };
+}
+
+const nativeWrappedTokenAddresses: NativeWrappedTokenAddressesTypes = {
   "0x1": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
   "0x38": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
   "0x89": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
 };
 
-const nativeTokenData = {
+const nativeTokenData: NativeTokenDataTypes = {
   "0x1": {
     name: "Ethereum",
     symbol: "ETH",
@@ -29,7 +40,7 @@ export async function startMoralis() {
   }
 }
 
-export function getNetworkNameByChainId(chainId) {
+export function getNetworkNameByChainId(chainId: string) {
   switch (chainId) {
     case "0x1":
       return "eth";
@@ -42,7 +53,7 @@ export function getNetworkNameByChainId(chainId) {
   }
 }
 
-export async function getTokenPrices(tokenAddress, chainId) {
+export async function getTokenPrices(tokenAddress: string, chainId: string) {
   const tokenPriceResponse = await Moralis.EvmApi.token.getTokenPrice({
     address: tokenAddress,
     chain: chainId,
@@ -51,7 +62,7 @@ export async function getTokenPrices(tokenAddress, chainId) {
   return tokenPriceResponse?.toJSON()?.usdPrice || 0;
 }
 
-export async function getNativeTokenData(chainId, address) {
+export async function getNativeTokenData(chainId: string, address: string) {
   const nativeBalanceResponse = await Moralis.EvmApi.balance.getNativeBalance({
     address,
     chain: chainId,
@@ -69,7 +80,7 @@ export async function getNativeTokenData(chainId, address) {
   };
 }
 
-export async function getNonNativeTokenData(chainId, address) {
+export async function getNonNativeTokenData(chainId: string, address: string) {
   const tokenResponse = await Moralis.EvmApi.token.getWalletTokenBalances({
     address,
     chain: chainId,
@@ -105,15 +116,18 @@ export async function getNonNativeTokenData(chainId, address) {
   );
 }
 
-export function sortTokenList(tokenList) {
-  const calculateTotalBalance = (token) => {
+export function sortTokenList(tokenList: any[]) {
+  const calculateTotalBalance = (token: TokenDetailTypes) => {
     if (!token?.possible_spam) {
       return (token?.balance / 10 ** token?.decimals) * token?.price;
     }
     return 0;
   };
 
-  const compareTokens = (tokenA, tokenB) => {
+  const compareTokens = (
+    tokenA: TokenDetailTypes,
+    tokenB: TokenDetailTypes
+  ) => {
     const totalBalanceA = calculateTotalBalance(tokenA);
     const totalBalanceB = calculateTotalBalance(tokenB);
 
@@ -123,7 +137,7 @@ export function sortTokenList(tokenList) {
   return tokenList.filter((token) => !token?.possible_spam).sort(compareTokens);
 }
 
-export function calculateTotalNetWorth(tokenList) {
+export function calculateTotalNetWorth(tokenList: TokenDetailTypes[]) {
   return tokenList.reduce((total, token) => {
     if (!token?.possible_spam) {
       return total + (token?.balance / 10 ** token?.decimals) * token?.price;
@@ -132,7 +146,7 @@ export function calculateTotalNetWorth(tokenList) {
   }, 0);
 }
 
-export function shortenAddress(address, length = 4) {
+export function shortenAddress(address: string, length = 4) {
   if (!address || address.length <= length) {
     return address;
   }
