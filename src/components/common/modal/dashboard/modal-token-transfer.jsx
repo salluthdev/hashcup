@@ -1,6 +1,6 @@
-import { Modal } from ".";
+import Modal from "../modal";
 
-export function ModalTokenTransfer({ setModal, selectedTokenDetail }) {
+export default function ModalTokenTransfer({ setModal, selectedTokenDetail }) {
   return (
     <Modal setModal={setModal} title={`Send ${selectedTokenDetail.symbol}`}>
       <p className="text-sm">Coming soon 🐱‍💻</p>

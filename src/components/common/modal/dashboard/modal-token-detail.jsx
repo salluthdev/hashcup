@@ -1,10 +1,10 @@
 import { USDFormat, shortenAddress } from "@/utils";
-import { Modal } from ".";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import Modal from "../modal";
 
-export function ModalTokenDetail({ setModal, selectedTokenDetail }) {
+export default function ModalTokenDetail({ setModal, selectedTokenDetail }) {
   const block_explorer =
     selectedTokenDetail.network === "eth"
       ? "etherscan"

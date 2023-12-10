@@ -26,7 +26,7 @@ export default function Hello() {
           cup.
         </p>
       </div>
-      <Button onClick={openConnectModal} withoutHoverAnim>
+      <Button onClick={openConnectModal} withoutHoverAnim className={"w-full"}>
         Connect Wallet
       </Button>
       <div className="w-full flex items-center gap-5">

@@ -1,8 +1,4 @@
 import {
-  ModalTokenDetail,
-  ModalTokenTransfer,
-} from "@/components/common/modal";
-import {
   NumberFormat,
   USDFormat,
   getNativeTokenData,
@@ -13,6 +9,10 @@ import {
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { toast } from "react-toastify";
+import {
+  ModalTokenDetail,
+  ModalTokenTransfer,
+} from "@/components/common/modal/dashboard";
 
 const chainIds = ["0x1", "0x38", "0x89"];
 

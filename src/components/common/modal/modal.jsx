@@ -1,4 +1,4 @@
-export function Modal({ setModal, children, title }) {
+export default function Modal({ setModal, children, title }) {
   return (
     <div
       className="w-full h-full fixed flex justify-center items-center bg-[rgba(0,0,0,0.3)] animate-opacity inset-0 z-20"
