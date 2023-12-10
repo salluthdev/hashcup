@@ -1,5 +1,5 @@
 const variants = {
-  primary: "text-white bg-brandeis_blue shadow-brandeis_blue",
+  primary: "text-white bg-brandeis_blue hover:shadow-lg shadow-brandeis_blue",
   transparent: "text-root_beer bg-transparent",
 };
 
@@ -18,7 +18,7 @@ export function Button({
 }) {
   return (
     <button
-      className={`font-semibold rounded-lg hover:shadow-lg active:scale-95 transition ${
+      className={`font-semibold rounded-lg active:scale-95 transition ${
         variants[variant]
       }  ${sizes[size]} ${!withoutHoverAnim && "hover:scale-105"} ${className}`}
       onClick={onClick}

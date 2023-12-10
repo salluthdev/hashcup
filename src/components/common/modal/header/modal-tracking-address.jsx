@@ -9,7 +9,9 @@ export default function ModalTrackingAddress({ setModal, trackedAddress }) {
     <Modal setModal={setModal} title={"Tracking Address"}>
       <p className="text-sm">Address: {trackedAddress}</p>
       <Button onClick={openConnectModal}>Connect Wallet</Button>
-      <Button variant="transparent">Logout</Button>
+      <Button variant="transparent" withoutHoverAnim>
+        Logout
+      </Button>
     </Modal>
   );
 }
