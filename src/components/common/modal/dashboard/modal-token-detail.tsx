@@ -25,7 +25,7 @@ export default function ModalTokenDetail({
       : "";
   const tokenDetailRow = (
     label: string,
-    value: string | number,
+    value: string | number | undefined,
     clickAction?: () => void
   ) => (
     <div className="flex justify-between items-center gap-4 text-sm">
@@ -35,7 +35,7 @@ export default function ModalTokenDetail({
           className="group flex items-center gap-1 cursor-pointer"
           onClick={clickAction}
         >
-          <p className="truncate">{value}</p>
+          <p className="truncate">{value ?? "-"}</p>
           <Image
             src={"/svg/icon-copy.svg"}
             width={12}
@@ -45,7 +45,7 @@ export default function ModalTokenDetail({
           />
         </div>
       ) : (
-        <p>{value || "-"}</p>
+        <p>{value ?? "-"}</p>
       )}
     </div>
   );
