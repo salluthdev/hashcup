@@ -1,10 +1,20 @@
-import { USDFormat, shortenAddress } from "@/utils";
+import { USDFormat, addTokenToMetaMask, shortenAddress } from "@/utils";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import Modal from "../modal";
+import { Dispatch, SetStateAction } from "react";
+import { TokenDetailTypes } from "@/types/token";
 
-export default function ModalTokenDetail({ setModal, selectedTokenDetail }) {
+interface ModalTokenDetailProps {
+  setModal: Dispatch<SetStateAction<string>>;
+  selectedTokenDetail: TokenDetailTypes;
+}
+
+export default function ModalTokenDetail({
+  setModal,
+  selectedTokenDetail,
+}: ModalTokenDetailProps) {
   const block_explorer =
     selectedTokenDetail.network === "eth"
       ? "etherscan"
@@ -13,45 +23,11 @@ export default function ModalTokenDetail({ setModal, selectedTokenDetail }) {
       : selectedTokenDetail.network === "polygon"
       ? "polygonscan"
       : "";
-
-  const addTokenToMetaMask = () => {
-    // Check if MetaMask is installed
-    if (window.ethereum) {
-      const tokenData = {
-        type: "ERC20",
-        options: {
-          address: selectedTokenDetail.token_address,
-          symbol: selectedTokenDetail.symbol,
-          decimals: selectedTokenDetail.decimals,
-        },
-      };
-
-      // Request MetaMask to add the token
-      window.ethereum
-        .request({
-          method: "wallet_watchAsset",
-          params: {
-            type: "ERC20",
-            options: tokenData.options,
-          },
-        })
-        .then((success) => {
-          if (success) {
-            toast.success("Token added to MetaMask! 🥳🎉");
-          } else {
-            toast.error("Oops! Try again later 🧐");
-          }
-        })
-        .catch((error) => {
-          console.error("MetaMask error:", error);
-        });
-    } else {
-      // MetaMask is not installed, prompt the user to install it
-      toast.error("Please install Metamask 🙂");
-    }
-  };
-
-  const tokenDetailRow = (label, value, clickAction) => (
+  const tokenDetailRow = (
+    label: string,
+    value: string | number,
+    clickAction?: () => void
+  ) => (
     <div className="flex justify-between items-center gap-4 text-sm">
       <p>{label}:</p>
       {clickAction ? (
@@ -108,7 +84,7 @@ export default function ModalTokenDetail({ setModal, selectedTokenDetail }) {
             height={16}
             alt=""
             className="hover:scale-105 active:scale-95 transition cursor-pointer"
-            onClick={addTokenToMetaMask}
+            onClick={() => addTokenToMetaMask(selectedTokenDetail)}
           />
           <Image
             src={"/svg/icon-trustwallet.svg"}

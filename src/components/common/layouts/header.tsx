@@ -8,8 +8,8 @@ import { ModalTrackingAddress } from "../modal/header";
 import { Button } from "../button";
 
 export default function Header() {
-  const [githubStars, setGithubStars] = useState(0);
-  const [modal, setModal] = useState("");
+  const [githubStars, setGithubStars] = useState<number>(0);
+  const [modal, setModal] = useState<string>("");
   const { trackedAddress } = useContext(TrackedAddressContext);
   const router = useRouter();
 

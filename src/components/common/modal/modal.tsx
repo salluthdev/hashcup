@@ -1,4 +1,12 @@
-export default function Modal({ setModal, children, title }) {
+import { Dispatch, ReactNode, SetStateAction } from "react";
+
+interface ModalProps {
+  setModal: Dispatch<SetStateAction<string>>;
+  children: ReactNode;
+  title: string;
+}
+
+export default function Modal({ setModal, children, title }: ModalProps) {
   return (
     <div
       className="w-full h-full fixed flex justify-center items-center bg-[rgba(0,0,0,0.3)] animate-opacity inset-0 z-20"

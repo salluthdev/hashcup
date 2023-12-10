@@ -1,6 +1,15 @@
 import { USDFormat, calculateTotalNetWorth } from "@/utils";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { TokenDetailTypes } from "@/types/token";
+
+interface OverviewProps {
+  tokenList: TokenDetailTypes[];
+  address: string;
+  trackedAddress: string;
+  hideBalances: boolean;
+  setHideBalances: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 export default function Overview({
   tokenList,
@@ -8,8 +17,8 @@ export default function Overview({
   trackedAddress,
   hideBalances,
   setHideBalances,
-}) {
-  const [totalNetWorth, setTotalNetWorth] = useState(0);
+}: OverviewProps) {
+  const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
 
   useEffect(() => {
     // Calculate total net worth

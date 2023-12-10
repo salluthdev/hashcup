@@ -13,6 +13,15 @@ import {
   ModalTokenDetail,
   ModalTokenTransfer,
 } from "@/components/common/modal/dashboard";
+import { TokenDetailTypes } from "@/types/token";
+
+interface TokenListProps {
+  tokenList: TokenDetailTypes[];
+  setTokenList: React.Dispatch<React.SetStateAction<TokenDetailTypes[]>>;
+  address: string;
+  trackedAddress: string;
+  hideBalances: boolean;
+}
 
 const chainIds = ["0x1", "0x38", "0x89"];
 
@@ -22,11 +31,12 @@ export default function TokenList({
   address,
   trackedAddress,
   hideBalances,
-}) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedTokenDetail, setSelectedTokenDetail] = useState([]);
-  const [modal, setModal] = useState("");
-  const [tokenImageError, setTokenImageError] = useState([]);
+}: TokenListProps) {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [selectedTokenDetail, setSelectedTokenDetail] =
+    useState<TokenDetailTypes>({} as TokenDetailTypes);
+  const [modal, setModal] = useState<string>("");
+  const [tokenImageError, setTokenImageError] = useState<string[]>([]);
 
   const getTokenDatas = async () => {
     setIsLoading(true);
@@ -80,7 +90,7 @@ export default function TokenList({
               }}
             >
               <div className="relative">
-                {!tokenImageError.includes(token?.token_address) ? (
+                {!tokenImageError.includes(token.token_address) ? (
                   <Image
                     src={`/img/token/${token?.network}/${
                       token?.token_address ? token?.token_address : "native"
