@@ -46,7 +46,9 @@ export default function Input({
 
         {label && (
           <div className="absolute top-1/2 right-4 -translate-y-1/2 flex items-center gap-3">
-            <Button size="sm">Max</Button>
+            <Button size="xs" variant="pale_orange">
+              Max
+            </Button>
             <p className="max-w-[56px] font-medium truncate">{label}</p>
           </div>
         )}
