@@ -22,7 +22,7 @@ export default function ModalTokenTransfer({
         title="Amount"
         subTitle={`Balance: ${NumberFormat(
           selectedTokenDetail.balance / 10 ** selectedTokenDetail.decimals
-        )} ${selectedTokenDetail.symbol}`}
+        )}`}
         placeholder="0"
         maxButton
         label={selectedTokenDetail.symbol}
