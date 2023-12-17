@@ -3,7 +3,8 @@ import { Button } from "../button";
 
 interface InputProps extends HTMLAttributes<HTMLInputElement> {
   name?: string;
-  title?: string;
+  title: string;
+  subTitle?: string;
   placeholder?: string;
   type?: string;
   className?: string;
@@ -14,7 +15,9 @@ interface InputProps extends HTMLAttributes<HTMLInputElement> {
 }
 
 export default function Input({
+  name,
   title,
+  subTitle,
   type,
   className,
   placeholder,
@@ -33,7 +36,10 @@ export default function Input({
 
   return (
     <div className="flex flex-col gap-2 text-sm">
-      <p>{title}</p>
+      <div className="flex justify-between items-center gap-4">
+        <p>{title}</p>
+        {subTitle && <p className="text-pastel_brown">{subTitle}</p>}
+      </div>
       <div className="relative">
         <input
           type={type}
@@ -46,9 +52,11 @@ export default function Input({
 
         {label && (
           <div className="absolute top-1/2 right-4 -translate-y-1/2 flex items-center gap-3">
-            <Button size="xs" variant="pale_orange">
-              Max
-            </Button>
+            {maxButton && (
+              <Button size="xs" variant="pale_orange">
+                Max
+              </Button>
+            )}
             <p className="max-w-[56px] font-medium truncate">{label}</p>
           </div>
         )}

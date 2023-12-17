@@ -2,6 +2,8 @@ import { Dispatch, SetStateAction } from "react";
 import Modal from "../modal";
 import { TokenDetailTypes } from "@/types/token";
 import { Input } from "../../input";
+import { Button } from "../../button";
+import { NumberFormat } from "@/utils";
 
 interface ModalTokenTransferProps {
   setModal: Dispatch<SetStateAction<string>>;
@@ -18,10 +20,14 @@ export default function ModalTokenTransfer({
       <Input
         type="number"
         title="Amount"
+        subTitle={`Balance: ${NumberFormat(
+          selectedTokenDetail.balance / 10 ** selectedTokenDetail.decimals
+        )} ${selectedTokenDetail.symbol}`}
         placeholder="0"
         maxButton
         label={selectedTokenDetail.symbol}
       />
+      <Button withoutHoverAnim>Send</Button>
     </Modal>
   );
 }
