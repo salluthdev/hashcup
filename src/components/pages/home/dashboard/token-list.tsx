@@ -125,12 +125,14 @@ export default function TokenList({
                               token?.price
                           )}
                     </p>
-                    <Image
-                      src={`/svg/network/${token?.network}.svg`}
-                      width={16}
-                      height={16}
-                      alt=""
-                    />
+                    {!hideBalances && (
+                      <Image
+                        src={`/svg/network/${token?.network}.svg`}
+                        width={16}
+                        height={16}
+                        alt=""
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-between items-center gap-4 text-pastel_brown">
@@ -151,7 +153,6 @@ export default function TokenList({
                   e.stopPropagation();
                   setSelectedTokenDetail(token);
                   setModal("modal-token-transfer");
-                  toast.info("Coming Soon 🐱‍💻");
                 }}
               >
                 <Image

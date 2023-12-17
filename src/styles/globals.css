@@ -13,7 +13,16 @@
 
 @layer base {
   p,
-  input {
+  input,
+  button {
     @apply tracking-wide;
+  }
+  input,
+  button {
+    @apply outline-none;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    @apply appearance-none;
   }
 }

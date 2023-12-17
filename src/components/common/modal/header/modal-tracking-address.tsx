@@ -20,7 +20,7 @@ export default function ModalTrackingAddress({
 
   return (
     <Modal setModal={setModal} title={"Tracking Address"}>
-      <div className="flex flex-col text-sm cursor-pointer mb-2">
+      <div className="flex flex-col text-sm cursor-pointer">
         <p>Address:</p>
         <div className="flex items-center gap-1">
           <p className="text-pastel_brown truncate">{trackedAddress}</p>

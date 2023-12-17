@@ -7,11 +7,12 @@ const config = {
   theme: {
     extend: {
       colors: {
-        seashell: "#fff6ef",
         root_beer: "#2b1009",
         pastel_brown: "#7d6d60",
         very_pale_orange: "#ffd8c1",
+        seashell: "#fff6ef",
         linen: "#f9ede5",
+        platinum: "#eae5e3",
         brandeis_blue: "#0e76fd",
       },
       keyframes: {

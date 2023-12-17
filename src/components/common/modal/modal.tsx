@@ -18,7 +18,7 @@ export default function Modal({ setModal, children, title }: ModalProps) {
       >
         <p className="font-bold">{title}</p>
         <hr className="w-full h-px bg-gray-300 border-0" />
-        <div className="w-full flex flex-col gap-2">{children}</div>
+        <div className="w-full flex flex-col gap-4">{children}</div>
       </div>
     </div>
   );
