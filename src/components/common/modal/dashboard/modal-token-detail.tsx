@@ -93,7 +93,7 @@ export default function ModalTokenDetail({
               height={16}
               alt=""
               className="hover:scale-105 active:scale-95 transition cursor-pointer"
-              onClick={() => toast.info("Coming Soon 🫡")}
+              onClick={() => toast.info("Stay Tune 😎")}
             />
           </div>
         )}

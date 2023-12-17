@@ -4,6 +4,7 @@ import { TokenDetailTypes } from "@/types/token";
 import { Input } from "../../input";
 import { Button } from "../../button";
 import { NumberFormat } from "@/utils";
+import { toast } from "react-toastify";
 
 interface ModalTokenTransferProps {
   setModal: Dispatch<SetStateAction<string>>;
@@ -27,7 +28,9 @@ export default function ModalTokenTransfer({
         maxButton
         label={selectedTokenDetail.symbol}
       />
-      <Button withoutHoverAnim>Send</Button>
+      <Button withoutHoverAnim onClick={() => toast.info("Stay Tune 😎")}>
+        Send
+      </Button>
     </Modal>
   );
 }
