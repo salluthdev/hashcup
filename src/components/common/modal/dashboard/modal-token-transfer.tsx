@@ -14,8 +14,13 @@ export default function ModalTokenTransfer({
 }: ModalTokenTransferProps) {
   return (
     <Modal setModal={setModal} title={`Send ${selectedTokenDetail.symbol}`}>
-      <Input label="Send to Address" placeholder="0x..." />
-      <Input type="number" label="Amount" placeholder="0" />
+      <Input title="Send to Address" placeholder="0x..." />
+      <Input
+        type="number"
+        title="Amount"
+        placeholder="0"
+        label={selectedTokenDetail.symbol}
+      />
     </Modal>
   );
 }
