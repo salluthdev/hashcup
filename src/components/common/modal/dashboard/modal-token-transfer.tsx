@@ -19,6 +19,7 @@ export default function ModalTokenTransfer({
         type="number"
         title="Amount"
         placeholder="0"
+        maxButton
         label={selectedTokenDetail.symbol}
       />
     </Modal>

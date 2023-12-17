@@ -1,4 +1,5 @@
 import { ChangeEvent, HTMLAttributes } from "react";
+import { Button } from "../button";
 
 interface InputProps extends HTMLAttributes<HTMLInputElement> {
   name?: string;
@@ -9,6 +10,7 @@ interface InputProps extends HTMLAttributes<HTMLInputElement> {
   value?: any;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   label?: string;
+  maxButton?: boolean;
 }
 
 export default function Input({
@@ -19,11 +21,12 @@ export default function Input({
   value,
   onChange,
   label,
+  maxButton,
   ...restProps
 }: InputProps) {
   const inputClassName = [
     className,
-    `w-full font-medium placeholder:text-[#7d6f64] border-2 border-[#eae5e3] rounded-lg py-3 px-4 ${
+    `w-full font-medium placeholder:text-pastel_brown border-2 border-platinum rounded-lg py-3 px-4 ${
       label ? "pr-20" : "pr-4"
     }`,
   ].join(" ");
@@ -40,10 +43,12 @@ export default function Input({
           onChange={onChange}
           {...restProps}
         />
+
         {label && (
-          <p className="absolute top-1/2 right-4 -translate-y-1/2 font-medium">
-            {label}
-          </p>
+          <div className="absolute top-1/2 right-4 -translate-y-1/2 flex items-center gap-3">
+            <Button size="sm">Max</Button>
+            <p className="max-w-[56px] font-medium truncate">{label}</p>
+          </div>
         )}
       </div>
     </div>
