@@ -16,4 +16,8 @@
   input {
     @apply tracking-wide;
   }
+  input,
+  button {
+    @apply outline-none;
+  }
 }

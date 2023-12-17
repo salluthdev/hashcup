@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import Modal from "../modal";
 import { TokenDetailTypes } from "@/types/token";
+import { Input } from "../../input";
 
 interface ModalTokenTransferProps {
   setModal: Dispatch<SetStateAction<string>>;
@@ -13,8 +14,8 @@ export default function ModalTokenTransfer({
 }: ModalTokenTransferProps) {
   return (
     <Modal setModal={setModal} title={`Send ${selectedTokenDetail.symbol}`}>
-      <p className="text-sm">Coming soon 🐱‍💻</p>
-      <p className="text-sm">We are building for it!</p>
+      <Input label="Send to Address" placeholder="0x..." />
+      <Input type="number" label="Amount" placeholder="0" />
     </Modal>
   );
 }
