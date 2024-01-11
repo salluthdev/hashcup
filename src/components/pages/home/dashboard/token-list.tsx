@@ -47,23 +47,28 @@ export default function TokenList({
 
         // Get native and non-native token data
         const getTokenData = chainIds.map(async (chainId) => {
-          const nativeTokenData = await getNativeTokenData(
+          const nativeTokenList = await getNativeTokenData(
             chainId,
             address || trackedAddress
           );
-          const tokenData = await getNonNativeTokenData(
+          const nonNativeTokenList = await getNonNativeTokenData(
             chainId,
             address || trackedAddress
           );
 
-          return Promise.all([nativeTokenData, ...tokenData]);
+          return Promise.all([nativeTokenList, ...nonNativeTokenList]);
         });
 
         const allBalances = await Promise.all(getTokenData);
         const flattenedBalances = allBalances.flat();
 
+        // Filter out tokens with zero balances
+        const nonZeroBalances = flattenedBalances.filter(
+          (token) => parseFloat(token.balance) !== 0
+        );
+
         // Short tokenlist from higher total balance to lower
-        const sortedTokenList = sortTokenList(flattenedBalances);
+        const sortedTokenList = sortTokenList(nonZeroBalances);
         setTokenList(sortedTokenList);
         setIsLoading(false);
       } catch (error) {
