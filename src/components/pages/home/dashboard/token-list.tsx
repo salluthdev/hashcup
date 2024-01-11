@@ -8,7 +8,6 @@ import {
 } from "@/utils";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { toast } from "react-toastify";
 import {
   ModalTokenDetail,
   ModalTokenTransfer,
