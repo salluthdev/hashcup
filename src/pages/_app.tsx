@@ -11,6 +11,7 @@ import { publicProvider } from "wagmi/providers/public";
 import { AppLayout } from "@/components/common/layouts";
 import { TrackedAddressProvider } from "@/context";
 import type { AppProps } from "next/app";
+import { BlockiesAvatar } from "@/components/common/avatar";
 
 const { chains, publicClient } = configureChains(
   [mainnet, bsc, polygon],
@@ -39,6 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
           accentColorForeground: "#fff6ef",
           borderRadius: "medium",
         })}
+        avatar={BlockiesAvatar}
       >
         <TrackedAddressProvider>
           <AppLayout>
