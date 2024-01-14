@@ -1,4 +1,6 @@
-interface ButtonProps {
+import { ButtonHTMLAttributes } from "react";
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
   children: React.ReactNode;
   withoutHoverAnim?: boolean;
@@ -20,6 +22,7 @@ const sizes = {
 };
 
 export default function Button({
+  type,
   onClick,
   children,
   withoutHoverAnim,
@@ -29,6 +32,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
+      type={type}
       className={`font-semibold rounded-lg active:scale-95 transition ${
         variants[variant]
       }  ${sizes[size]} ${!withoutHoverAnim && "hover:scale-105"} ${className}`}

@@ -39,7 +39,7 @@ export default function Hello() {
         onSubmit={(e) =>
           Web3.utils.isAddress(address)
             ? setTrackedAddress(address)
-            : (e.preventDefault(), toast.error("Invalid Address 🤔"))
+            : (e.preventDefault(), toast.error("Invalid address 🤔"))
         }
       >
         <input
