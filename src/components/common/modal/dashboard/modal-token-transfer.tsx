@@ -46,6 +46,7 @@ export default function ModalTokenTransfer({
 
       const amountAsNumber = Number(parsedAmount);
 
+      // Check validate address or amount
       if (
         !formData.recipient_address ||
         isNaN(amountAsNumber) ||
@@ -54,6 +55,12 @@ export default function ModalTokenTransfer({
         toast.error("Invalid recipient address or amount");
         return;
       }
+
+      // Switch network based on the selected token
+      await ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: selectedTokenDetail.chain_id }],
+      });
 
       // Send native token
       const tx = await signer.sendTransaction({
