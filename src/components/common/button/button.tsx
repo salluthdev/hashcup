@@ -7,6 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "transparent" | "pale_orange";
   size?: "xs" | "sm" | "md";
   className?: string;
+  isLoading?: boolean;
 }
 
 const variants = {
@@ -29,15 +30,21 @@ export default function Button({
   variant = "primary",
   size = "md",
   className,
+  isLoading,
 }: ButtonProps) {
   return (
     <button
       type={type}
-      className={`font-semibold rounded-lg active:scale-95 transition ${
+      className={`flex justify-center items-center gap-2 font-semibold rounded-lg active:scale-95 transition ${
         variants[variant]
-      }  ${sizes[size]} ${!withoutHoverAnim && "hover:scale-105"} ${className}`}
+      }  ${sizes[size]} ${!withoutHoverAnim && "hover:scale-105"} ${
+        isLoading && "text-white bg-pastel_brown cursor-not-allowed"
+      } ${className}`}
       onClick={onClick}
     >
+      {isLoading && (
+        <div className="h-4 w-4 border-t-transparent border-solid rounded-full border-[3px] border-white animate-spin" />
+      )}
       {children}
     </button>
   );

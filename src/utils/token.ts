@@ -75,6 +75,7 @@ export async function getNativeTokenData(chainId: string, address: string) {
     balance: nativeBalanceResponse.toJSON().balance,
     decimals: 18,
     network: getNetworkNameByChainId(chainId),
+    chain_id: chainId,
     symbol: nativeToken.symbol,
     price: await getTokenPrices(nativeWrappedTokenAddresses[chainId], chainId),
   };

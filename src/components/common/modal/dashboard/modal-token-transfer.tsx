@@ -20,9 +20,13 @@ export default function ModalTokenTransfer({
     recipient_address: "",
     amount: "",
   });
+  const [isButtonLoading, setIsButtonLoading] = useState<string>("");
+
+  console.log(selectedTokenDetail);
 
   const handleSendToken = async (e: FormEvent) => {
     e.preventDefault();
+    setIsButtonLoading("button-token-transfer");
 
     try {
       const ethereum = (window as any).ethereum;
@@ -63,6 +67,8 @@ export default function ModalTokenTransfer({
     } catch (error) {
       console.log("Error sending tokens:", error);
       toast.error("Transaction rejected 😔");
+    } finally {
+      setIsButtonLoading("");
     }
   };
 
@@ -92,7 +98,12 @@ export default function ModalTokenTransfer({
         label={selectedTokenDetail.symbol}
         onChange={(e) => handleInputChange(e, setFormData)}
       />
-      <Button withoutHoverAnim>Send</Button>
+      <Button
+        withoutHoverAnim
+        isLoading={isButtonLoading === "button-token-transfer"}
+      >
+        Send
+      </Button>
     </Modal>
   );
 }
