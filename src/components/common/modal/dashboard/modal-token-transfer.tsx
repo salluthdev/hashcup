@@ -1,4 +1,10 @@
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 import Modal from "../modal";
 import { TokenDetailTypes } from "@/types/token";
 import { Input } from "../../input";
@@ -6,6 +12,8 @@ import { Button } from "../../button";
 import { NumberFormat, handleInputChange } from "@/utils";
 import { toast } from "react-toastify";
 import { ethers } from "ethers";
+import { TrackedAddressContext } from "@/context";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 interface ModalTokenTransferProps {
   setModal: Dispatch<SetStateAction<string>>;
@@ -21,6 +29,8 @@ export default function ModalTokenTransfer({
     amount: "",
   });
   const [isButtonLoading, setIsButtonLoading] = useState<string>("");
+  const { trackedAddress } = useContext(TrackedAddressContext);
+  const { openConnectModal } = useConnectModal();
 
   console.log(selectedTokenDetail);
 
@@ -105,12 +115,23 @@ export default function ModalTokenTransfer({
         label={selectedTokenDetail.symbol}
         onChange={(e) => handleInputChange(e, setFormData)}
       />
-      <Button
-        withoutHoverAnim
-        isLoading={isButtonLoading === "button-token-transfer"}
-      >
-        Send
-      </Button>
+      {trackedAddress ? (
+        <Button
+          type="button"
+          onClick={openConnectModal}
+          withoutHoverAnim
+          className={"w-full"}
+        >
+          Connect Wallet
+        </Button>
+      ) : (
+        <Button
+          withoutHoverAnim
+          isLoading={isButtonLoading === "button-token-transfer"}
+        >
+          Send
+        </Button>
+      )}
     </Modal>
   );
 }

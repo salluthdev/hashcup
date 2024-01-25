@@ -7,9 +7,9 @@ import { toast } from "react-toastify";
 import Web3 from "web3";
 
 export default function Hello() {
+  const [address, setAddress] = useState<string>("");
   const { setTrackedAddress } = useContext(TrackedAddressContext);
   const { openConnectModal } = useConnectModal();
-  const [address, setAddress] = useState<string>("");
 
   return (
     <div className="max-w-sm flex flex-col items-center gap-7 text-center py-10 px-4 mx-auto">
