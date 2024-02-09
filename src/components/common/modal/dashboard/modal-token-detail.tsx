@@ -62,7 +62,7 @@ export default function ModalTokenDetail({
             shortenAddress(selectedTokenDetail.token_address),
             () => {
               navigator.clipboard.writeText(selectedTokenDetail.token_address);
-              toast.success("Address Copied 🥳🎉");
+              toast.success("Address copied 🥳🎉");
             }
           )}
         {selectedTokenDetail.token_address && (
@@ -93,7 +93,7 @@ export default function ModalTokenDetail({
               height={16}
               alt=""
               className="hover:scale-105 active:scale-95 transition cursor-pointer"
-              onClick={() => toast.info("Stay Tune 😎")}
+              onClick={() => toast.info("Stay tune 😎")}
             />
           </div>
         )}

@@ -7,4 +7,5 @@ export interface TokenDetailTypes {
   price: number;
   balance: number;
   possible_spam?: boolean;
+  chain_id?: string;
 }
