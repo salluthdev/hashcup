@@ -27,7 +27,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
       {mounted ? isConnected || trackedAddress ? <Header /> : null : null}
       <main className="flex-1">{children}</main>
       <Footer />
-      <ToastContainer position="top-center" autoClose={1200} />
+      <ToastContainer position="top-center" autoClose={1600} />
     </div>
   );
 }
