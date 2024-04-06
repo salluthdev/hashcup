@@ -32,8 +32,6 @@ export default function ModalTokenTransfer({
   const { trackedAddress } = useContext(TrackedAddressContext);
   const { openConnectModal } = useConnectModal();
 
-  console.log(selectedTokenDetail);
-
   const handleSendToken = async (e: FormEvent) => {
     e.preventDefault();
 
