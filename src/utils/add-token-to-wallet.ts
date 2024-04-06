@@ -41,6 +41,6 @@ export const addTokenToMetaMask = (
       });
   } else {
     // MetaMask is not installed, prompt the user to install it
-    toast.error("Please install Metamask 🙂");
+    toast.error("Please install MetaMask 🙂");
   }
 };

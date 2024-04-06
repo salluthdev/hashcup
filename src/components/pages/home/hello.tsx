@@ -7,9 +7,9 @@ import { toast } from "react-toastify";
 import Web3 from "web3";
 
 export default function Hello() {
+  const [address, setAddress] = useState<string>("");
   const { setTrackedAddress } = useContext(TrackedAddressContext);
   const { openConnectModal } = useConnectModal();
-  const [address, setAddress] = useState<string>("");
 
   return (
     <div className="max-w-sm flex flex-col items-center gap-7 text-center py-10 px-4 mx-auto">
@@ -39,7 +39,7 @@ export default function Hello() {
         onSubmit={(e) =>
           Web3.utils.isAddress(address)
             ? setTrackedAddress(address)
-            : (e.preventDefault(), toast.error("Invalid Address 🤔"))
+            : (e.preventDefault(), toast.error("Invalid address 🤔"))
         }
       >
         <input
@@ -56,7 +56,7 @@ export default function Hello() {
         <span
           className="font-medium underline cursor-pointer"
           onClick={() =>
-            setTrackedAddress("0x0067c86305462323289c29b0Ed5e2151A38CdE7d")
+            setTrackedAddress("0xBD0E7395B8084CBa0981eC4A4044A6661e78ed48")
           }
         >
           View demo

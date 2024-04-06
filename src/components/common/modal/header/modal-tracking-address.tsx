@@ -1,10 +1,10 @@
-import { shortenAddress } from "@/utils";
 import Modal from "../modal";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { Button } from "../../button";
 import { Dispatch, SetStateAction, useContext } from "react";
 import Image from "next/image";
 import { TrackedAddressContext } from "@/context";
+import { toast } from "react-toastify";
 
 interface ModalTrackingAddressProps {
   setModal: Dispatch<SetStateAction<string>>;
@@ -22,8 +22,16 @@ export default function ModalTrackingAddress({
     <Modal setModal={setModal} title={"Tracking Address"}>
       <div className="flex flex-col text-sm cursor-pointer">
         <p>Address:</p>
-        <div className="flex items-center gap-1">
-          <p className="text-pastel_brown truncate">{trackedAddress}</p>
+        <div
+          className="group flex items-center gap-1"
+          onClick={() => {
+            navigator.clipboard.writeText(trackedAddress);
+            toast.success("Address copied 🥳🎉");
+          }}
+        >
+          <p className="text-pastel_brown truncate group-hover:text-opacity-80">
+            {trackedAddress}
+          </p>
           <Image
             src={"/svg/icon-copy.svg"}
             width={12}

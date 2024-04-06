@@ -7,6 +7,7 @@ interface InputProps extends HTMLAttributes<HTMLInputElement> {
   subTitle?: string;
   placeholder?: string;
   type?: string;
+  required?: boolean;
   className?: string;
   value?: any;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -19,6 +20,7 @@ export default function Input({
   title,
   subTitle,
   type,
+  required = true,
   className,
   placeholder,
   value,
@@ -42,9 +44,12 @@ export default function Input({
       </div>
       <div className="relative">
         <input
+          name={name}
           type={type}
           placeholder={placeholder}
           value={value}
+          required={required}
+          step="any"
           className={inputClassName}
           onChange={onChange}
           {...restProps}
@@ -53,7 +58,7 @@ export default function Input({
         {label && (
           <div className="absolute top-1/2 right-4 -translate-y-1/2 flex items-center gap-3">
             {maxButton && (
-              <Button size="xs" variant="pale_orange">
+              <Button type="button" size="xs" variant="pale_orange">
                 Max
               </Button>
             )}

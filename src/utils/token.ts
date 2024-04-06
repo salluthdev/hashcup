@@ -15,6 +15,7 @@ const nativeWrappedTokenAddresses: NativeWrappedTokenAddressesTypes = {
   "0x1": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
   "0x38": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
   "0x89": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
+  "0x2105": "0x4200000000000000000000000000000000000006",
 };
 
 const nativeTokenData: NativeTokenDataTypes = {
@@ -29,6 +30,10 @@ const nativeTokenData: NativeTokenDataTypes = {
   "0x89": {
     name: "Polygon",
     symbol: "MATIC",
+  },
+  "0x2105": {
+    name: "Base",
+    symbol: "ETH",
   },
 };
 
@@ -48,6 +53,8 @@ export function getNetworkNameByChainId(chainId: string) {
       return "bsc";
     case "0x89":
       return "polygon";
+    case "0x2105":
+      return "base";
     default:
       return "";
   }
@@ -75,6 +82,7 @@ export async function getNativeTokenData(chainId: string, address: string) {
     balance: nativeBalanceResponse.toJSON().balance,
     decimals: 18,
     network: getNetworkNameByChainId(chainId),
+    chain_id: chainId,
     symbol: nativeToken.symbol,
     price: await getTokenPrices(nativeWrappedTokenAddresses[chainId], chainId),
   };
