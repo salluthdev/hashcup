@@ -36,57 +36,58 @@ export default function ModalTokenTransfer({
 
   const handleSendToken = async (e: FormEvent) => {
     e.preventDefault();
-    setIsButtonLoading("button-token-transfer");
 
-    try {
-      const ethereum = (window as any).ethereum;
+    // setIsButtonLoading("button-token-transfer");
 
-      if (!ethereum) {
-        toast.error("MetaMask not detected. Please install MetaMask.");
-        return;
-      }
+    // try {
+    //   const ethereum = (window as any).ethereum;
 
-      const provider = new ethers.BrowserProvider(ethereum);
-      const signer = await provider.getSigner();
+    //   if (!ethereum) {
+    //     toast.error("MetaMask not detected. Please install MetaMask.");
+    //     return;
+    //   }
 
-      const parsedAmount = ethers.parseUnits(
-        formData.amount,
-        selectedTokenDetail.decimals
-      );
+    //   const provider = new ethers.BrowserProvider(ethereum);
+    //   const signer = await provider.getSigner();
 
-      const amountAsNumber = Number(parsedAmount);
+    //   const parsedAmount = ethers.parseUnits(
+    //     formData.amount,
+    //     selectedTokenDetail.decimals
+    //   );
 
-      // Check validate address or amount
-      if (
-        !formData.recipient_address ||
-        isNaN(amountAsNumber) ||
-        amountAsNumber <= 0
-      ) {
-        toast.error("Invalid recipient address or amount");
-        return;
-      }
+    //   const amountAsNumber = Number(parsedAmount);
 
-      // Switch network based on the selected token
-      await ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: selectedTokenDetail.chain_id }],
-      });
+    //   // Check validate address or amount
+    //   if (
+    //     !formData.recipient_address ||
+    //     isNaN(amountAsNumber) ||
+    //     amountAsNumber <= 0
+    //   ) {
+    //     toast.error("Invalid recipient address or amount");
+    //     return;
+    //   }
 
-      // Send native token
-      const tx = await signer.sendTransaction({
-        to: formData.recipient_address,
-        value: parsedAmount,
-      });
-      await tx.wait();
+    //   // Switch network based on the selected token
+    //   await ethereum.request({
+    //     method: "wallet_switchEthereumChain",
+    //     params: [{ chainId: selectedTokenDetail.chain_id }],
+    //   });
 
-      toast.success("Transaction success!");
-      setModal("");
-    } catch (error) {
-      console.log("Error sending tokens:", error);
-      toast.error("Transaction rejected 😔");
-    } finally {
-      setIsButtonLoading("");
-    }
+    //   // Send native token
+    //   const tx = await signer.sendTransaction({
+    //     to: formData.recipient_address,
+    //     value: parsedAmount,
+    //   });
+    //   await tx.wait();
+
+    //   toast.success("Transaction success!");
+    //   setModal("");
+    // } catch (error) {
+    //   console.log("Error sending tokens:", error);
+    //   toast.error("Transaction rejected 😔");
+    // } finally {
+    //   setIsButtonLoading("");
+    // }
   };
 
   return (
@@ -128,6 +129,7 @@ export default function ModalTokenTransfer({
         <Button
           withoutHoverAnim
           isLoading={isButtonLoading === "button-token-transfer"}
+          onClick={() => toast.info("Stay tune 😎")}
         >
           Send
         </Button>

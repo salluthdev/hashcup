@@ -22,7 +22,7 @@ interface TokenListProps {
   hideBalances: boolean;
 }
 
-const chainIds = ["0x1", "0x38", "0x89"];
+const chainIds = ["0x1", "0x38", "0x89", "0x2105"];
 
 export default function TokenList({
   tokenList,
@@ -56,6 +56,7 @@ export default function TokenList({
             address || trackedAddress
           );
 
+          console.log(nonNativeTokenList);
           return Promise.all([nativeTokenList, ...nonNativeTokenList]);
         });
 
